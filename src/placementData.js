@@ -56,7 +56,7 @@ export const PLACEMENT_QUESTIONS = [
   {
     id: 10,
     prompt: "I was watching TV ___ the phone rang.",
-    choices: ["while", "during", "when it"],
+    choices: ["during", "while", "whenever"],
     answer: "while",
   },
   {

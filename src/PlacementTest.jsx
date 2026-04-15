@@ -77,8 +77,7 @@ function PlacementQuiz({ onFinish }) {
   const progressPct = (questionIndex / TOTAL) * 100;
 
   function handleSelect(choice) {
-    if (selected !== null) return;
-    setSelected(choice);
+    setSelected(choice === selected ? null : choice);
   }
 
   function handleNext() {
