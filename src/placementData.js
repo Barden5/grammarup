@@ -91,9 +91,9 @@ export const PLACEMENT_QUESTIONS = [
   },
   {
     id: 16,
-    prompt: "The results ___ announced last Monday.",
-    choices: ["were announced", "announced", "have announced"],
-    answer: "were announced",
+    prompt: "The results were ___ last Monday.",
+    choices: ["announce", "announced", "announcing"],
+    answer: "announced",
   },
   {
     id: 17,
@@ -115,9 +115,9 @@ export const PLACEMENT_QUESTIONS = [
   },
   {
     id: 20,
-    prompt: "The book ___ on the table belongs to my teacher.",
-    choices: ["lying", "which it is", "that is lying"],
-    answer: "that is lying",
+    prompt: "The girl ___ sits next to me is very kind.",
+    choices: ["which", "who", "whose"],
+    answer: "who",
   },
 ];
 
