@@ -38,18 +38,17 @@ const FREE_PRACTICE_PARAMS = {
 async function callGeminiAPI(levelId) {
   const p = FREE_PRACTICE_PARAMS[levelId];
   const prompt =
-    `You are an expert ELL grammar curriculum designer for K-8 students. ` +
-    `Generate a complete grammar lesson for a student at ${p.level} CEFR level, ` +
-    `grades ${p.grades}, age band ${p.ageBand}. ` +
-    `The character for this lesson is ${p.character}. ` +
-    `Randomly select one topic from this list: ${p.topics}. ` +
-    `Write all instructions at the appropriate reading level for ELL students. ` +
-    `Return ONLY a valid JSON object with no markdown, no backticks, no extra text. ` +
-    `The JSON must have these exact keys: topic (string), explanation (string), ` +
-    `examples (array of 3 strings), exercise1 (array of 3 objects), ` +
-    `exercise2 (array of 3 objects), exercise3 (array of 3 objects). ` +
-    `Each exercise object must have: prompt (string), options (array of 3 strings), ` +
-    `answer (string), hint (string), feedbackCorrect (string), feedbackWrong (string).`;
+    `You are an expert ELL grammar curriculum designer for K-8 students. Generate a mixed grammar review lesson for a student at ${p.level} CEFR level, grades ${p.grades}, age band ${p.ageBand}. The character for this lesson is ${p.character}.\n` +
+    `Randomly select exactly 3 different topics from this list: ${p.topics}\n` +
+    `Create 3 questions for each selected topic — 9 questions total across 3 exercises. Each exercise covers one topic. Label each exercise with the topic name it covers.\n` +
+    `STRICT RULES — follow every one of these exactly:\n\n` +
+    `Every question must have exactly ONE blank (___). Never use two or more blanks in the same question. Never.\n` +
+    `All 3 selected topics must be different from each other\n` +
+    `Questions should feel connected to a short story featuring ${p.character}\n` +
+    `Write all instructions at the appropriate reading level for ELL students\n` +
+    `Wrong answer options (distractors) must be plausible — not obviously silly\n` +
+    `Never repeat the same question or sentence structure twice\n\n` +
+    `Return ONLY a valid JSON object with no markdown, no backticks, no extra text. The JSON must have these exact keys: topic (string — write Mixed Practice followed by the 3 topic names), explanation (string — brief friendly intro to the mixed review session), examples (array of 3 strings), exercise1 (array of 3 question objects), exercise2 (array of 3 question objects), exercise3 (array of 3 question objects). Each question object must have: prompt (string with exactly one blank), options (array of exactly 3 strings), answer (string), hint (string), feedbackCorrect (string), feedbackWrong (string), exerciseLabel (string — the topic name for this exercise).`;
 
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   console.log("[FreePractice] VITE_GEMINI_API_KEY:", apiKey ? "defined" : "undefined");
@@ -111,21 +110,24 @@ async function callGeminiAPI(levelId) {
 function buildLessonData(levelId, ai) {
   const p = FREE_PRACTICE_PARAMS[levelId];
 
-  const exMeta = [
-    { id: 1, label: "Exercise 1", type: "Multiple Choice", icon: "🎯" },
-    { id: 2, label: "Exercise 2", type: "Practice",        icon: "🔍" },
-    { id: 3, label: "Exercise 3", type: "Challenge",       icon: "✏️" },
-  ];
+  const exIcons = ["🎯", "🔍", "✏️"];
 
-  const exercises = [ai.exercise1, ai.exercise2, ai.exercise3].map((qs, idx) => ({
-    ...exMeta[idx],
-    questions: qs.map((q, qi) => ({
-      id:     idx * 3 + qi + 1,
-      prompt: q.prompt,
-      choices: q.options,
-      answer:  q.answer,
-    })),
-  }));
+  const exercises = [ai.exercise1, ai.exercise2, ai.exercise3].map((qs, idx) => {
+    // Use the AI-supplied exerciseLabel from the first question in each group
+    const topicLabel = qs[0]?.exerciseLabel ?? `Exercise ${idx + 1}`;
+    return {
+      id:    idx + 1,
+      label: topicLabel,
+      type:  "Multiple Choice",
+      icon:  exIcons[idx],
+      questions: qs.map((q, qi) => ({
+        id:      idx * 3 + qi + 1,
+        prompt:  q.prompt,
+        choices: q.options,
+        answer:  q.answer,
+      })),
+    };
+  });
 
   const allQuestions = exercises.flatMap((ex) =>
     ex.questions.map((q) => ({
