@@ -49,6 +49,8 @@ export default function LevelPage({ levelId, lessonsMap, profile, onStart, onBac
           const unlocked   = isTopicUnlocked(i);
           const hasLesson  = topic.lessonId !== null;
           const canStart   = unlocked && hasLesson && !done;
+          const canReplay  = done && hasLesson;
+          const tappable   = canStart || canReplay;
 
           let rowClass = "lp-topic-row";
           if (done)       rowClass += " lp-topic-done";
@@ -59,9 +61,9 @@ export default function LevelPage({ levelId, lessonsMap, profile, onStart, onBac
             <div
               key={i}
               className={rowClass}
-              onClick={() => canStart && onStart(lessonsMap[topic.lessonId])}
-              role={canStart ? "button" : undefined}
-              tabIndex={canStart ? 0 : undefined}
+              onClick={() => tappable && onStart(lessonsMap[topic.lessonId])}
+              role={tappable ? "button" : undefined}
+              tabIndex={tappable ? 0 : undefined}
             >
               {/* Number badge */}
               <div className={`lp-badge ${done ? "lp-badge-done" : !unlocked ? "lp-badge-locked" : "lp-badge-open"}`}>
@@ -83,7 +85,10 @@ export default function LevelPage({ levelId, lessonsMap, profile, onStart, onBac
               {/* Right side */}
               <div className="lp-topic-right">
                 {done ? (
-                  <span className="lp-done-check" aria-label="Completed">✅</span>
+                  <span className="lp-replay-badge" aria-label="Replay">
+                    <span className="lp-replay-icon">↺</span>
+                    <span className="lp-replay-text">Replay</span>
+                  </span>
                 ) : !unlocked ? (
                   <span className="lp-lock" aria-label="Locked">🔒</span>
                 ) : canStart ? (

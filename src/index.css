@@ -1837,6 +1837,26 @@ body {
   line-height: 1;
 }
 
+.lp-replay-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  color: #16a34a;
+}
+
+.lp-replay-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.lp-replay-text {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
 .lp-lock {
   font-size: 18px;
   line-height: 1;
