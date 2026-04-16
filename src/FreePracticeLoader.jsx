@@ -52,20 +52,41 @@ async function callGeminiAPI(levelId) {
     `answer (string), hint (string), feedbackCorrect (string), feedbackWrong (string).`;
 
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  console.log("[FreePractice] VITE_GEMINI_API_KEY:", apiKey ? `defined (starts with ${apiKey.slice(0, 8)}...)` : "undefined");
+
   const url =
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
-  });
+  let res;
+  try {
+    res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+    });
+  } catch (networkErr) {
+    console.error("[FreePractice] Network/fetch error:", networkErr);
+    throw networkErr;
+  }
 
-  if (!res.ok) throw new Error(`API error ${res.status}`);
+  console.log("[FreePractice] Response status:", res.status, res.statusText);
+
+  if (!res.ok) {
+    const errorBody = await res.text();
+    console.error("[FreePractice] API error body:", errorBody);
+    throw new Error(`API error ${res.status}: ${errorBody}`);
+  }
 
   const data = await res.json();
+  console.log("[FreePractice] Full API response:", JSON.stringify(data, null, 2));
+
   const raw = data.candidates?.[0]?.content?.parts?.[0]?.text;
-  if (!raw) throw new Error("Empty response from API");
+  if (!raw) {
+    console.error("[FreePractice] No text in response. candidates:", data.candidates);
+    throw new Error("Empty response from API");
+  }
+
+  console.log("[FreePractice] Raw text from model:", raw);
 
   // Strip accidental markdown fences just in case
   const cleaned = raw
@@ -74,7 +95,17 @@ async function callGeminiAPI(levelId) {
     .replace(/\s*```\s*$/i, "")
     .trim();
 
-  return JSON.parse(cleaned);
+  let parsed;
+  try {
+    parsed = JSON.parse(cleaned);
+  } catch (parseErr) {
+    console.error("[FreePractice] JSON parse error:", parseErr.message);
+    console.error("[FreePractice] String that failed to parse:", cleaned);
+    throw parseErr;
+  }
+
+  console.log("[FreePractice] Parsed lesson JSON:", parsed);
+  return parsed;
 }
 
 function buildLessonData(levelId, ai) {
@@ -148,7 +179,8 @@ export default function FreePracticeLoader({ levelId, onLessonReady, onBack }) {
       .then((ai) => {
         if (!cancelled) onLessonReady(buildLessonData(levelId, ai));
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("[FreePractice] Generation failed:", err);
         if (!cancelled) setStatus("error");
       });
 
