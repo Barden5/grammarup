@@ -1,5 +1,8 @@
 import { LEVELS, countCompletedTopics } from "./levelData";
 
+// Unlock threshold: 1 completed topic for testing (raise to 8 for full release)
+const FP_UNLOCK_THRESHOLD = 1;
+
 const ACCENT_HEADER = {
   green:  "lc-header-green",
   blue:   "lc-header-blue",
@@ -7,10 +10,11 @@ const ACCENT_HEADER = {
   purple: "lc-header-purple",
 };
 
-export default function LevelPage({ levelId, lessonsMap, profile, onStart, onBack }) {
-  const level          = LEVELS.find((l) => l.id === levelId);
-  const completedTopics = profile?.completedTopics ?? {};
-  const completedCount  = countCompletedTopics(level.topics, completedTopics);
+export default function LevelPage({ levelId, lessonsMap, profile, onStart, onFreePractice, onBack }) {
+  const level              = LEVELS.find((l) => l.id === levelId);
+  const completedTopics    = profile?.completedTopics ?? {};
+  const completedCount     = countCompletedTopics(level.topics, completedTopics);
+  const fpUnlocked         = completedCount >= FP_UNLOCK_THRESHOLD;
 
   function isTopicUnlocked(index) {
     if (index === 0) return true;
@@ -45,6 +49,7 @@ export default function LevelPage({ levelId, lessonsMap, profile, onStart, onBac
       {/* Topic list */}
       <div className="lp-topic-list">
         {level.topics.map((topic, i) => {
+
           const done       = topic.lessonId !== null && completedTopics[topic.lessonId] === true;
           const unlocked   = isTopicUnlocked(i);
           const hasLesson  = topic.lessonId !== null;
@@ -100,6 +105,25 @@ export default function LevelPage({ levelId, lessonsMap, profile, onStart, onBac
             </div>
           );
         })}
+      </div>
+
+      {/* Free Practice card */}
+      <div
+        className={`fp-card ${fpUnlocked ? "fp-card-unlocked" : "fp-card-locked"}`}
+        onClick={() => fpUnlocked && onFreePractice(levelId)}
+        role={fpUnlocked ? "button" : undefined}
+        tabIndex={fpUnlocked ? 0 : undefined}
+      >
+        <div className="fp-card-icon">{fpUnlocked ? "✨" : "🔒"}</div>
+        <div className="fp-card-text">
+          <span className="fp-card-title">Free Practice</span>
+          <span className="fp-card-desc">
+            {fpUnlocked
+              ? "AI-generated lessons just for you!"
+              : `Complete Topic 1 to unlock`}
+          </span>
+        </div>
+        {fpUnlocked && <div className="fp-card-arrow">›</div>}
       </div>
 
     </div>

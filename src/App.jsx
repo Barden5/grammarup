@@ -6,6 +6,7 @@ import ScoreScreen from "./ScoreScreen";
 import PlacementTest from "./PlacementTest";
 import ProfileSetup from "./ProfileSetup";
 import ProfileScreen from "./ProfileScreen";
+import FreePracticeLoader from "./FreePracticeLoader";
 import { lesson as a1Lesson, allQuestions as a1Questions } from "./lesson";
 import { lesson as a2Lesson, allQuestions as a2Questions } from "./lessonA2";
 import { lesson as b1Lesson, allQuestions as b1Questions } from "./lessonB1";
@@ -44,9 +45,10 @@ export default function App() {
     return "home";
   });
 
-  const [results,          setResults]         = useState([]);
-  const [activeLesson,     setActiveLesson]    = useState(null);
-  const [selectedLevel,    setSelectedLevel]   = useState(null);
+  const [results,           setResults]         = useState([]);
+  const [activeLesson,      setActiveLesson]    = useState(null);
+  const [selectedLevel,     setSelectedLevel]   = useState(null);
+  const [fpLevel,           setFpLevel]         = useState(null);
   const [xp,               setXp]             = useState(() => loadProfile()?.xp ?? 0);
   const [streak]                               = useState(1);
   const [xpEarned,         setXpEarned]       = useState(0);
@@ -111,6 +113,22 @@ export default function App() {
     setScreen("home");
   }
 
+  // ── Free Practice flow ────────────────────────────────────────────────────
+  function handleFreePracticeStart(levelId) {
+    setFpLevel(levelId);
+    setScreen("free-practice");
+  }
+
+  function handleFreePracticeReady(lessonData) {
+    setFpLevel(null);
+    handleStart(lessonData);
+  }
+
+  function handleFreePracticeBack() {
+    setFpLevel(null);
+    setScreen("level");
+  }
+
   // ── Lesson flow ───────────────────────────────────────────────────────────
   function handleStart(lessonData) {
     setActiveLesson(lessonData);
@@ -124,10 +142,10 @@ export default function App() {
     setXpEarned(earned);
     setResults(newResults);
     if (profile) {
-      const completedTopics = {
-        ...(profile.completedTopics ?? {}),
-        [activeLesson.lesson.id]: true,
-      };
+      const isFreePractice = activeLesson.lesson.isFreePractice;
+      const completedTopics = isFreePractice
+        ? (profile.completedTopics ?? {})
+        : { ...(profile.completedTopics ?? {}), [activeLesson.lesson.id]: true };
       saveProfile({
         ...profile,
         xp:               newXp,
@@ -189,7 +207,16 @@ export default function App() {
           lessonsMap={LESSONS_MAP}
           profile={profile}
           onStart={handleStart}
+          onFreePractice={handleFreePracticeStart}
           onBack={handleLevelBack}
+        />
+      )}
+
+      {screen === "free-practice" && fpLevel && (
+        <FreePracticeLoader
+          levelId={fpLevel}
+          onLessonReady={handleFreePracticeReady}
+          onBack={handleFreePracticeBack}
         />
       )}
 

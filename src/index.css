@@ -1882,6 +1882,159 @@ body {
 }
 
 /* ══════════════════════════════
+   FREE PRACTICE CARD (level page)
+══════════════════════════════ */
+.fp-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: var(--radius-lg);
+  touch-action: manipulation;
+  transition: transform 0.08s, box-shadow 0.12s;
+}
+
+.fp-card-unlocked {
+  background: linear-gradient(135deg, #6c47ff 0%, #e879f9 100%);
+  box-shadow: 0 6px 24px rgba(108,71,255,0.40);
+  cursor: pointer;
+}
+.fp-card-unlocked:hover {
+  box-shadow: 0 8px 28px rgba(108,71,255,0.50);
+}
+.fp-card-unlocked:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 12px rgba(108,71,255,0.30);
+}
+
+.fp-card-locked {
+  background: linear-gradient(135deg, #9ca3af 0%, #d1d5db 100%);
+  opacity: 0.70;
+  cursor: default;
+}
+
+.fp-card-icon {
+  font-size: 32px;
+  line-height: 1;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.20));
+}
+
+.fp-card-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.fp-card-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.fp-card-desc {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.4;
+}
+
+.fp-card-arrow {
+  font-size: 28px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.90);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* done-topic rows are now tappable */
+.lp-topic-done {
+  cursor: pointer;
+}
+.lp-topic-done:active {
+  transform: translateY(2px);
+}
+
+/* ══════════════════════════════
+   FREE PRACTICE LOADING / ERROR
+══════════════════════════════ */
+.fp-loading-screen,
+.fp-error-screen {
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+
+.fp-loading-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+/* Animated spinner */
+.fp-spinner {
+  width: 56px;
+  height: 56px;
+  border: 5px solid var(--purple-light);
+  border-top-color: var(--purple);
+  border-radius: 50%;
+  animation: fp-spin 0.8s linear infinite;
+}
+
+@keyframes fp-spin {
+  to { transform: rotate(360deg); }
+}
+
+.fp-loading-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.fp-loading-sub {
+  font-size: 15px;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+.fp-error-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.fp-error-emoji {
+  font-size: 64px;
+  line-height: 1;
+}
+
+.fp-error-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.fp-error-msg {
+  font-size: 15px;
+  color: var(--gray-600);
+  margin: 0;
+  max-width: 280px;
+}
+
+/* ══════════════════════════════
    SMALL PHONE OVERRIDES (≤ 390px)
 ══════════════════════════════ */
 @media (max-width: 390px) {
