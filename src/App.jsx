@@ -1,5 +1,6 @@
 import { useState } from "react";
 import HomeScreen from "./HomeScreen";
+import LevelPage from "./LevelPage";
 import LessonScreen from "./LessonScreen";
 import ScoreScreen from "./ScoreScreen";
 import PlacementTest from "./PlacementTest";
@@ -14,12 +15,12 @@ import "./App.css";
 const PLACEMENT_KEY = "grammarup_placement_done";
 const PROFILE_KEY   = "grammarup_profile";
 
-const LESSONS = [
-  { lesson: a1Lesson, allQuestions: a1Questions },
-  { lesson: a2Lesson, allQuestions: a2Questions },
-  { lesson: b1Lesson, allQuestions: b1Questions },
-  { lesson: b2Lesson, allQuestions: b2Questions },
-];
+const LESSONS_MAP = {
+  "a1-simple-present":   { lesson: a1Lesson, allQuestions: a1Questions },
+  "a2-simple-past":      { lesson: a2Lesson, allQuestions: a2Questions },
+  "b1-modal-verbs":      { lesson: b1Lesson, allQuestions: b1Questions },
+  "b2-relative-clauses": { lesson: b2Lesson, allQuestions: b2Questions },
+};
 
 function getXpEarned(results) {
   const correct = results.filter(Boolean).length;
@@ -43,11 +44,12 @@ export default function App() {
     return "home";
   });
 
-  const [results,       setResults]       = useState([]);
-  const [activeLesson,  setActiveLesson]  = useState(null);
-  const [xp,            setXp]           = useState(() => loadProfile()?.xp ?? 0);
-  const [streak]                          = useState(1);
-  const [xpEarned,      setXpEarned]     = useState(0);
+  const [results,          setResults]         = useState([]);
+  const [activeLesson,     setActiveLesson]    = useState(null);
+  const [selectedLevel,    setSelectedLevel]   = useState(null);
+  const [xp,               setXp]             = useState(() => loadProfile()?.xp ?? 0);
+  const [streak]                               = useState(1);
+  const [xpEarned,         setXpEarned]       = useState(0);
   const [recommendedLevel, setRecommendedLevel] = useState(() => loadProfile()?.level ?? null);
 
   // ── Persistence helper ────────────────────────────────────────────────────
@@ -61,13 +63,16 @@ export default function App() {
     localStorage.setItem(PLACEMENT_KEY, "1");
     setRecommendedLevel(level);
     if (!profile) {
-      // First time — go collect profile info
       setScreen("profile-setup");
     } else {
-      // Retake — update level, skip setup
       saveProfile({ ...profile, level });
       setScreen("home");
     }
+  }
+
+  function handlePlacementQuit() {
+    if (profile) setScreen("home");
+    // First-time user: PlacementTest resets to intro internally
   }
 
   // ── Profile setup (first time) ────────────────────────────────────────────
@@ -77,13 +82,14 @@ export default function App() {
       level:            recommendedLevel ?? "A1",
       xp:               0,
       lessonsCompleted: 0,
+      completedTopics:  {},
     };
     saveProfile(newProfile);
     setXp(0);
     setScreen("home");
   }
 
-  // ── Profile edit (anytime from profile screen) ────────────────────────────
+  // ── Profile edit ──────────────────────────────────────────────────────────
   function handleProfileEdit(updates) {
     saveProfile({ ...profile, ...updates });
   }
@@ -92,6 +98,17 @@ export default function App() {
   function handleRetakePlacement() {
     localStorage.removeItem(PLACEMENT_KEY);
     setScreen("placement");
+  }
+
+  // ── Level page navigation ─────────────────────────────────────────────────
+  function handleLevelOpen(levelId) {
+    setSelectedLevel(levelId);
+    setScreen("level");
+  }
+
+  function handleLevelBack() {
+    setSelectedLevel(null);
+    setScreen("home");
   }
 
   // ── Lesson flow ───────────────────────────────────────────────────────────
@@ -107,10 +124,15 @@ export default function App() {
     setXpEarned(earned);
     setResults(newResults);
     if (profile) {
+      const completedTopics = {
+        ...(profile.completedTopics ?? {}),
+        [activeLesson.lesson.id]: true,
+      };
       saveProfile({
         ...profile,
         xp:               newXp,
         lessonsCompleted: (profile.lessonsCompleted ?? 0) + 1,
+        completedTopics,
       });
     }
     setScreen("score");
@@ -119,7 +141,20 @@ export default function App() {
   function handleRestart() {
     setResults([]);
     setActiveLesson(null);
+    setSelectedLevel(null);
     setScreen("home");
+  }
+
+  function handleLessonBack() {
+    setResults([]);
+    setActiveLesson(null);
+    setScreen("level"); // return to level page, not home
+  }
+
+  function handleNextLesson() {
+    setResults([]);
+    setActiveLesson(null);
+    setScreen("level"); // selectedLevel stays set — lands on current level page
   }
 
   // ── Render ────────────────────────────────────────────────────────────────
@@ -127,7 +162,7 @@ export default function App() {
     <div className="app">
 
       {screen === "placement" && (
-        <PlacementTest onComplete={handlePlacementComplete} />
+        <PlacementTest onComplete={handlePlacementComplete} onQuit={handlePlacementQuit} />
       )}
 
       {screen === "profile-setup" && (
@@ -139,13 +174,22 @@ export default function App() {
 
       {screen === "home" && (
         <HomeScreen
-          lessons={LESSONS}
           xp={xp}
           streak={streak}
-          onStart={handleStart}
+          onLevelOpen={handleLevelOpen}
           recommendedLevel={recommendedLevel}
           profile={profile}
           onProfileOpen={() => setScreen("profile")}
+        />
+      )}
+
+      {screen === "level" && selectedLevel && (
+        <LevelPage
+          levelId={selectedLevel}
+          lessonsMap={LESSONS_MAP}
+          profile={profile}
+          onStart={handleStart}
+          onBack={handleLevelBack}
         />
       )}
 
@@ -164,6 +208,7 @@ export default function App() {
           lesson={activeLesson.lesson}
           allQuestions={activeLesson.allQuestions}
           onFinish={handleFinish}
+          onBack={handleLessonBack}
         />
       )}
 
@@ -174,6 +219,7 @@ export default function App() {
           allQuestions={activeLesson.allQuestions}
           xpEarned={xpEarned}
           onRestart={handleRestart}
+          onNextLesson={handleNextLesson}
         />
       )}
 

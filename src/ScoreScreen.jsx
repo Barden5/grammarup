@@ -1,4 +1,4 @@
-export default function ScoreScreen({ results, lesson, allQuestions, xpEarned, onRestart }) {
+export default function ScoreScreen({ results, lesson, allQuestions, xpEarned, onRestart, onNextLesson }) {
   const total = results.length;
   const correct = results.filter(Boolean).length;
   const xp = xpEarned;
@@ -41,8 +41,11 @@ export default function ScoreScreen({ results, lesson, allQuestions, xpEarned, o
         ))}
       </div>
 
-      <button className="btn-primary" onClick={onRestart}>
-        Try Again 🔄
+      <button className="btn-primary" onClick={onNextLesson}>
+        Next Lesson →
+      </button>
+      <button className="btn-home" onClick={onRestart}>
+        Back to Home
       </button>
     </div>
   );

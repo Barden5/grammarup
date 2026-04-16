@@ -10,12 +10,13 @@ function renderBold(text) {
   );
 }
 
-export default function LessonScreen({ lesson, allQuestions, onFinish }) {
+export default function LessonScreen({ lesson, allQuestions, onFinish, onBack }) {
   const [step, setStep] = useState("intro"); // "intro" | "quiz"
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selected, setSelected] = useState(null);
   const [results, setResults] = useState([]);
   const [showBurst, setShowBurst] = useState(false);
+  const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
 
   const total = allQuestions.length;
   const current = allQuestions[questionIndex];
@@ -45,10 +46,27 @@ export default function LessonScreen({ lesson, allQuestions, onFinish }) {
     }
   }
 
+  const leaveConfirmModal = showLeaveConfirm && (
+    <div className="confirm-overlay">
+      <div className="confirm-card">
+        <p className="confirm-title">Leave this lesson?</p>
+        <p className="confirm-message">Your progress will be lost.</p>
+        <div className="confirm-buttons">
+          <button className="confirm-btn-action" onClick={onBack}>Leave</button>
+          <button className="confirm-btn-cancel" onClick={() => setShowLeaveConfirm(false)}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+
   // ── INTRO ──────────────────────────────────────────────────────────────────
   if (step === "intro") {
     return (
       <div className="screen lesson-screen">
+        {leaveConfirmModal}
+        <div className="screen-topbar">
+          <button className="back-btn" onClick={() => setShowLeaveConfirm(true)}>←</button>
+        </div>
         <div className="lesson-header">
           <span className="badge">{lesson.level}</span>
           <h1>{lesson.title}</h1>
@@ -95,6 +113,10 @@ export default function LessonScreen({ lesson, allQuestions, onFinish }) {
 
   return (
     <div className="screen lesson-screen">
+      {leaveConfirmModal}
+      <div className="screen-topbar">
+        <button className="back-btn" onClick={() => setShowLeaveConfirm(true)}>←</button>
+      </div>
       {/* Progress bar */}
       <div className="progress-wrap">
         <div className="progress-bar">

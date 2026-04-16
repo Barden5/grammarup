@@ -1,14 +1,15 @@
 import { getProfileColor } from "./profileData";
+import { LEVELS, isLevelAccessible, countCompletedTopics } from "./levelData";
 
-const ACCENT = {
-  green:  { header: "lc-header-green",  btn: "lc-btn-green"  },
-  blue:   { header: "lc-header-blue",   btn: "lc-btn-blue"   },
-  orange: { header: "lc-header-orange", btn: "lc-btn-orange" },
-  purple: { header: "lc-header-purple", btn: "lc-btn-purple" },
+const ACCENT_HEADER = {
+  green:  "lc-header-green",
+  blue:   "lc-header-blue",
+  orange: "lc-header-orange",
+  purple: "lc-header-purple",
 };
 
 export default function HomeScreen({
-  lessons, xp, streak, onStart,
+  xp, streak, onLevelOpen,
   recommendedLevel, profile, onProfileOpen,
 }) {
   const xpInLevel = xp % 100;
@@ -16,12 +17,14 @@ export default function HomeScreen({
   const xpToNext  = 100 - xpInLevel;
   const pc        = profile ? getProfileColor(profile.color) : null;
 
+  const completedTopics = profile?.completedTopics ?? {};
+  const studentLevel    = profile?.level ?? "A1";
+
   return (
     <div className="screen home-screen">
 
       {/* ── Header ── */}
       {profile ? (
-        /* Personalized header */
         <div className="home-header home-header-personal">
           <div className="home-greeting-row">
             <button
@@ -39,14 +42,13 @@ export default function HomeScreen({
           </div>
         </div>
       ) : (
-        /* Default header (no profile yet) */
         <div className="home-header">
           <div className="app-name">GrammarUp</div>
           <p className="app-tagline">Learn English grammar every day!</p>
         </div>
       )}
 
-      {/* ── Stats row: XP bar + streak ── */}
+      {/* ── Stats row ── */}
       <div className="stats-row">
         <div className="xp-block">
           <div className="xp-label-row">
@@ -72,37 +74,55 @@ export default function HomeScreen({
 
       {/* ── Level cards ── */}
       <div className="level-cards">
-        {lessons.map(({ lesson, allQuestions }) => {
-          const ac       = ACCENT[lesson.accent] ?? ACCENT.purple;
-          const isRec    = lesson.level === recommendedLevel;
+        {LEVELS.map((lvl) => {
+          const isRec    = lvl.id === recommendedLevel;
+          const locked   = !isLevelAccessible(studentLevel, lvl.id);
+          const done     = countCompletedTopics(lvl.topics, completedTopics);
+
           return (
-            <div
-              key={lesson.id}
-              className={`level-card${isRec ? " level-card-recommended" : ""}`}
+            <button
+              key={lvl.id}
+              className={[
+                "level-card",
+                "lc-tappable",
+                isRec  ? "level-card-recommended" : "",
+                locked ? "level-card-locked"      : "",
+              ].filter(Boolean).join(" ")}
+              onClick={() => !locked && onLevelOpen(lvl.id)}
+              disabled={locked}
+              aria-label={`${lvl.level} ${lvl.tier}${locked ? ", locked" : ""}`}
             >
-              <div className={`lc-header ${ac.header}`}>
-                <span className="lc-emoji">{lesson.characterEmoji}</span>
+              <div className={`lc-header ${ACCENT_HEADER[lvl.accent]}`}>
+                <span className="lc-emoji">
+                  {locked ? "🔒" : lvl.characterEmoji}
+                </span>
                 <div className="lc-header-text">
                   <div className="lc-badge-row">
-                    <span className="lc-badge">{lesson.level}</span>
-                    <span className="lc-tier">{lesson.tier}</span>
+                    <span className="lc-badge">{lvl.level}</span>
+                    <span className="lc-tier">{lvl.tier}</span>
                   </div>
-                  <div className="lc-title">{lesson.character}</div>
+                  <div className="lc-title">{lvl.character}</div>
                 </div>
               </div>
+
               <div className="lc-body">
                 {isRec && (
                   <div className="lc-recommended-badge">⭐ Recommended for you</div>
                 )}
-                <p className="lc-desc">{lesson.cardDescription}</p>
-                <button
-                  className={`lc-btn ${ac.btn}`}
-                  onClick={() => onStart({ lesson, allQuestions })}
-                >
-                  Start Lesson 🚀
-                </button>
+                <p className="lc-desc">{lvl.cardDescription}</p>
+                <div className="lc-progress-row">
+                  <div className="lc-mini-track">
+                    <div
+                      className="lc-mini-fill"
+                      style={{ width: `${(done / 8) * 100}%` }}
+                    />
+                  </div>
+                  <span className="lc-mini-label">
+                    {locked ? "Locked" : `${done}/8`}
+                  </span>
+                </div>
               </div>
-            </div>
+            </button>
           );
         })}
       </div>

@@ -114,6 +114,23 @@ body {
   border-bottom-width: 2px;
 }
 
+.btn-home {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  color: var(--gray-600);
+  font-size: 15px;
+  font-weight: 700;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+  margin-top: -8px;
+}
+.btn-home:hover  { background: var(--gray-100); border-color: var(--gray-300); color: var(--gray-900); }
+.btn-home:active { background: var(--gray-200); }
+
 .btn-next {
   width: 100%;
   padding: 18px;
@@ -392,7 +409,6 @@ body {
   flex-direction: column;
   align-items: flex-start;
   gap: 6px;
-  padding-top: 12px;
 }
 
 .lesson-header h1 {
@@ -1427,6 +1443,422 @@ body {
   font-size: 20px;
   font-weight: 800;
   text-align: center;
+}
+
+/* ══════════════════════════════
+   BACK / QUIT BUTTONS & CONFIRM MODAL
+══════════════════════════════ */
+
+/* Shared top bar for back/quit buttons */
+.screen-topbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+}
+
+/* Left-arrow back button */
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--gray-500, #6b7280);
+  cursor: pointer;
+  padding: 4px 10px 4px 0;
+  border-radius: var(--radius-sm);
+  touch-action: manipulation;
+  transition: color 0.12s;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.back-btn:hover  { color: var(--gray-900); }
+.back-btn:active { opacity: 0.55; }
+
+/* X quit button — right-aligned */
+.quit-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--gray-400);
+  cursor: pointer;
+  padding: 4px 0 4px 10px;
+  border-radius: var(--radius-sm);
+  touch-action: manipulation;
+  transition: color 0.12s;
+  line-height: 1;
+  margin-left: auto;
+}
+.quit-btn:hover  { color: var(--gray-700); }
+.quit-btn:active { opacity: 0.55; }
+
+/* Confirmation overlay */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.48);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 24px;
+}
+
+.confirm-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 28px 24px 22px;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+  animation: fadeUp 0.18s ease;
+}
+
+.confirm-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gray-900);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.confirm-message {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-600);
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.confirm-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.confirm-btn-action {
+  width: 100%;
+  padding: 14px;
+  background: var(--red);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-bottom: 3px solid var(--red-dark);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: filter 0.12s, transform 0.08s;
+}
+.confirm-btn-action:hover  { filter: brightness(0.92); }
+.confirm-btn-action:active { transform: translateY(1px); }
+
+.confirm-btn-cancel {
+  width: 100%;
+  padding: 14px;
+  background: var(--gray-100);
+  color: var(--gray-700);
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.12s;
+}
+.confirm-btn-cancel:hover { background: var(--gray-200); }
+
+/* ══════════════════════════════
+   HOME — TAPPABLE CARD + PROGRESS
+══════════════════════════════ */
+
+/* Reset button defaults while keeping card visuals */
+.lc-tappable {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font);
+  touch-action: manipulation;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  transition: transform 0.14s, box-shadow 0.14s;
+}
+.lc-tappable:hover  {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+}
+.lc-tappable:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
+/* Locked card */
+.level-card-locked {
+  opacity: 0.55;
+  cursor: default;
+}
+.level-card-locked:hover,
+.level-card-locked:active {
+  transform: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+
+/* Mini progress bar at bottom of home card */
+.lc-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.lc-mini-track {
+  flex: 1;
+  height: 7px;
+  background: var(--gray-200);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.lc-mini-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple) 0%, #a78bfa 100%);
+  border-radius: 99px;
+  transition: width 0.5s cubic-bezier(.4,0,.2,1);
+}
+
+.lc-mini-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray-400);
+  white-space: nowrap;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* ══════════════════════════════
+   LEVEL PAGE
+══════════════════════════════ */
+.lp-screen {
+  gap: 16px;
+  padding-top: 8px;
+}
+
+/* Colored header band */
+.lp-header {
+  width: 100%;
+  padding: 18px 20px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.14);
+}
+
+.lp-header-emoji {
+  font-size: 52px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.18));
+  flex-shrink: 0;
+}
+
+.lp-header-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Progress counter — right side of header */
+.lp-header-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  flex-shrink: 0;
+  background: rgba(0,0,0,0.18);
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+}
+
+.lp-count-num {
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+
+.lp-count-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.80);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Topic list */
+.lp-topic-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+/* Vertical journey connector line behind the badges */
+.lp-topic-list::before {
+  content: "";
+  position: absolute;
+  left: 31px;
+  top: 32px;
+  bottom: 32px;
+  width: 2px;
+  background: var(--gray-200);
+  z-index: 0;
+  border-radius: 99px;
+}
+
+/* Individual topic row */
+.lp-topic-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1.5px solid var(--gray-200);
+  border-bottom: 3px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  cursor: default;
+  touch-action: manipulation;
+  transition: border-color 0.12s, background 0.12s, transform 0.08s, border-bottom-width 0.08s;
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 1;
+  text-align: left;
+}
+
+.lp-topic-available {
+  cursor: pointer;
+}
+.lp-topic-available:hover {
+  border-color: var(--purple);
+  border-bottom-color: var(--purple-dark);
+  background: var(--purple-light);
+}
+.lp-topic-available:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.lp-topic-done {
+  background: var(--green-light);
+  border-color: #86efac;
+  border-bottom-color: #4ade80;
+}
+
+.lp-topic-locked {
+  opacity: 0.45;
+}
+
+/* Number / status badge on the left */
+.lp-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 900;
+  flex-shrink: 0;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.lp-badge-done {
+  background: var(--green);
+  color: #fff;
+  font-size: 16px;
+}
+
+.lp-badge-locked {
+  background: var(--gray-200);
+  color: var(--gray-500, #6b7280);
+  font-size: 13px;
+}
+
+.lp-badge-open {
+  background: var(--purple);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(108,71,255,0.35);
+}
+
+/* Topic text block */
+.lp-topic-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.lp-topic-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-900);
+  line-height: 1.3;
+}
+
+.lp-topic-desc {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gray-600);
+  line-height: 1.4;
+}
+
+/* Right-side indicators */
+.lp-topic-right {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.lp-done-check {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.lp-lock {
+  font-size: 18px;
+  line-height: 1;
+  opacity: 0.6;
+}
+
+.lp-start-arrow {
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--purple);
+  line-height: 1;
+  margin-right: -2px;
+}
+
+.lp-soon-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray-400);
+  background: var(--gray-100);
+  padding: 3px 9px;
+  border-radius: 99px;
+  border: 1px solid var(--gray-200);
 }
 
 /* ══════════════════════════════

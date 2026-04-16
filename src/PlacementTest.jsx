@@ -61,10 +61,11 @@ function shuffleArray(arr) {
 }
 
 // ── QUIZ ─────────────────────────────────────────────────────────────────────
-function PlacementQuiz({ onFinish }) {
+function PlacementQuiz({ onFinish, onQuit }) {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selected, setSelected]           = useState(null);
   const [answers, setAnswers]             = useState([]);
+  const [showQuitConfirm, setShowQuitConfirm] = useState(false);
 
   // Shuffle each question's choices once when the quiz mounts.
   // Answer comparison is text-based so correct-answer tracking still works.
@@ -94,6 +95,21 @@ function PlacementQuiz({ onFinish }) {
 
   return (
     <div className="screen pt-quiz">
+      {showQuitConfirm && (
+        <div className="confirm-overlay">
+          <div className="confirm-card">
+            <p className="confirm-title">Are you sure you want to quit?</p>
+            <p className="confirm-message">Your progress will be lost.</p>
+            <div className="confirm-buttons">
+              <button className="confirm-btn-action" onClick={onQuit}>Quit</button>
+              <button className="confirm-btn-cancel" onClick={() => setShowQuitConfirm(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="screen-topbar">
+        <button className="quit-btn" onClick={() => setShowQuitConfirm(true)}>✕</button>
+      </div>
       {/* Progress — shows Q number only, no level labels */}
       <div className="progress-wrap">
         <div className="progress-bar">
@@ -181,7 +197,7 @@ function PlacementResults({ answers, onComplete }) {
 }
 
 // ── ROOT COMPONENT ────────────────────────────────────────────────────────────
-export default function PlacementTest({ onComplete }) {
+export default function PlacementTest({ onComplete, onQuit }) {
   const [step, setStep]       = useState("intro"); // "intro" | "quiz" | "results"
   const [answers, setAnswers] = useState([]);
 
@@ -190,7 +206,12 @@ export default function PlacementTest({ onComplete }) {
     setStep("results");
   }
 
+  function handleQuit() {
+    setStep("intro");
+    if (onQuit) onQuit();
+  }
+
   if (step === "intro")   return <PlacementIntro onStart={() => setStep("quiz")} />;
   if (step === "results") return <PlacementResults answers={answers} onComplete={onComplete} />;
-  return <PlacementQuiz onFinish={handleQuizFinish} />;
+  return <PlacementQuiz onFinish={handleQuizFinish} onQuit={handleQuit} />;
 }
