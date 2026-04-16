@@ -73,7 +73,9 @@ async function callGeminiAPI(levelId) {
   if (!res.ok) {
     const errorBody = await res.text();
     console.error("[FreePractice] API error body:", errorBody);
-    throw new Error(`API error ${res.status}: ${errorBody}`);
+    const err = new Error(`API error ${res.status}: ${errorBody}`);
+    err.status = res.status;
+    throw err;
   }
 
   const data = await res.json();
@@ -169,25 +171,55 @@ function buildLessonData(levelId, ai) {
   return { lesson, allQuestions };
 }
 
+const MAX_503_RETRIES = 3;
+const RETRY_DELAY_MS  = 10000;
+
 export default function FreePracticeLoader({ levelId, onLessonReady, onBack }) {
-  const [status,  setStatus]  = useState("loading"); // "loading" | "error"
-  const [attempt, setAttempt] = useState(0);
+  const [status,       setStatus]       = useState("loading"); // "loading" | "error"
+  const [retryMsg,     setRetryMsg]     = useState(null);      // shown during 503 wait
+  const [triggerCount, setTriggerCount] = useState(0);         // incremented by manual Retry
 
   useEffect(() => {
     let cancelled = false;
-    setStatus("loading");
 
-    callGeminiAPI(levelId)
-      .then((ai) => {
-        if (!cancelled) onLessonReady(buildLessonData(levelId, ai));
-      })
-      .catch((err) => {
-        console.error("[FreePractice] Generation failed:", err);
-        if (!cancelled) setStatus("error");
-      });
+    setStatus("loading");
+    setRetryMsg(null);
+
+    async function run() {
+      for (let attempt = 0; attempt <= MAX_503_RETRIES; attempt++) {
+        if (cancelled) return;
+
+        // Before each retry (not the first attempt): show wait message then pause
+        if (attempt > 0) {
+          if (!cancelled) setRetryMsg(
+            `Gemini is busy right now — retrying in 10 seconds… (attempt ${attempt} of ${MAX_503_RETRIES})`
+          );
+          await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+          if (cancelled) return;
+          setRetryMsg(null);
+        }
+
+        try {
+          const ai = await callGeminiAPI(levelId);
+          if (!cancelled) onLessonReady(buildLessonData(levelId, ai));
+          return;
+        } catch (err) {
+          console.error(`[FreePractice] Attempt ${attempt + 1} failed:`, err);
+
+          // Retry only on 503 and only while retries remain
+          if (err.status === 503 && attempt < MAX_503_RETRIES) continue;
+
+          // Any other error, or all retries exhausted → show error screen
+          if (!cancelled) setStatus("error");
+          return;
+        }
+      }
+    }
+
+    run();
 
     return () => { cancelled = true; };
-  }, [levelId, attempt]); // re-runs on Retry (attempt increments)
+  }, [levelId, triggerCount]); // triggerCount re-runs the whole flow on manual Retry
 
   if (status === "loading") {
     return (
@@ -195,7 +227,9 @@ export default function FreePracticeLoader({ levelId, onLessonReady, onBack }) {
         <div className="fp-loading-inner">
           <div className="fp-spinner" />
           <p className="fp-loading-title">Generating your lesson…</p>
-          <p className="fp-loading-sub">Your AI tutor is preparing something special ✨</p>
+          <p className="fp-loading-sub">
+            {retryMsg ?? "Your AI tutor is preparing something special ✨"}
+          </p>
         </div>
       </div>
     );
@@ -212,7 +246,7 @@ export default function FreePracticeLoader({ levelId, onLessonReady, onBack }) {
         <p className="fp-error-msg">
           We couldn't generate your lesson right now. Please try again.
         </p>
-        <button className="btn-primary" onClick={() => setAttempt((n) => n + 1)}>
+        <button className="btn-primary" onClick={() => setTriggerCount((n) => n + 1)}>
           Retry
         </button>
         <button className="btn-home" onClick={onBack}>Back</button>
