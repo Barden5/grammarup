@@ -55,7 +55,7 @@ async function callGeminiAPI(levelId) {
   console.log("[FreePractice] VITE_GEMINI_API_KEY:", apiKey ? `defined (starts with ${apiKey.slice(0, 8)}...)` : "undefined");
 
   const url =
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
   let res;
   try {
