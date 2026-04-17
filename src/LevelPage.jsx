@@ -41,7 +41,7 @@ export default function LevelPage({ levelId, lessonsMap, profile, onStart, onFre
           <div className="lc-title">{level.character}</div>
         </div>
         <div className="lp-header-count">
-          <span className="lp-count-num">{completedCount}/8</span>
+          <span className="lp-count-num">{completedCount}/{level.topics.length}</span>
           <span className="lp-count-label">done</span>
         </div>
       </div>

@@ -12,13 +12,18 @@ import { lesson as a2Lesson, allQuestions as a2Questions } from "./lessonA2";
 import { lesson as b1Lesson, allQuestions as b1Questions } from "./lessonB1";
 import { lesson as b2Lesson, allQuestions as b2Questions } from "./lessonB2";
 import {
-  lessonA1Topic2, allQuestionsA1Topic2,
-  lessonA1Topic3, allQuestionsA1Topic3,
-  lessonA1Topic4, allQuestionsA1Topic4,
-  lessonA1Topic5, allQuestionsA1Topic5,
-  lessonA1Topic6, allQuestionsA1Topic6,
-  lessonA1Topic7, allQuestionsA1Topic7,
-  lessonA1Topic8, allQuestionsA1Topic8,
+  lessonA1Topic2,  allQuestionsA1Topic2,
+  lessonA1Topic3,  allQuestionsA1Topic3,
+  lessonA1Topic4,  allQuestionsA1Topic4,
+  lessonA1Topic5,  allQuestionsA1Topic5,
+  lessonA1Topic6,  allQuestionsA1Topic6,
+  lessonA1Topic7,  allQuestionsA1Topic7,
+  lessonA1Topic8,  allQuestionsA1Topic8,
+  lessonA1Topic9,  allQuestionsA1Topic9,
+  lessonA1Topic10, allQuestionsA1Topic10,
+  lessonA1Topic11, allQuestionsA1Topic11,
+  lessonA1Topic12, allQuestionsA1Topic12,
+  lessonA1Topic13, allQuestionsA1Topic13,
 } from "./lessonsA1";
 import "./App.css";
 
@@ -33,7 +38,12 @@ const LESSONS_MAP = {
   "a1-verb-to-be":        { lesson: lessonA1Topic5,  allQuestions: allQuestionsA1Topic5 },
   "a1-basic-adjectives":  { lesson: lessonA1Topic6,  allQuestions: allQuestionsA1Topic6 },
   "a1-simple-sentences":  { lesson: lessonA1Topic7,  allQuestions: allQuestionsA1Topic7 },
-  "a1-possessives":       { lesson: lessonA1Topic8,  allQuestions: allQuestionsA1Topic8 },
+  "a1-possessives":            { lesson: lessonA1Topic8,  allQuestions: allQuestionsA1Topic8 },
+  "a1-present-i-you-we-they": { lesson: lessonA1Topic9,  allQuestions: allQuestionsA1Topic9 },
+  "a1-special-plurals":       { lesson: lessonA1Topic10, allQuestions: allQuestionsA1Topic10 },
+  "a1-basic-questions":       { lesson: lessonA1Topic11, allQuestions: allQuestionsA1Topic11 },
+  "a1-negative-sentences":    { lesson: lessonA1Topic12, allQuestions: allQuestionsA1Topic12 },
+  "a1-present-continuous":    { lesson: lessonA1Topic13, allQuestions: allQuestionsA1Topic13 },
   "a2-simple-past":       { lesson: a2Lesson,        allQuestions: a2Questions },
   "b1-modal-verbs":       { lesson: b1Lesson,        allQuestions: b1Questions },
   "b2-relative-clauses":  { lesson: b2Lesson,        allQuestions: b2Questions },

@@ -19,6 +19,11 @@ export const LEVELS = [
       { title: "Basic adjectives",            desc: "Describe people, places, and things",            lessonId: "a1-basic-adjectives" },
       { title: "Simple sentences",            desc: "Put words together to build a sentence",         lessonId: "a1-simple-sentences" },
       { title: "Possessives",                 desc: "My, your, his, her — show who owns something",   lessonId: "a1-possessives" },
+      { title: "Simple present — I, you, we, they", desc: "No -s for I, you, we and they",            lessonId: "a1-present-i-you-we-they" },
+      { title: "Nouns and plurals — special plurals", desc: "Words that change in a special way",     lessonId: "a1-special-plurals" },
+      { title: "Basic question formation",    desc: "Ask questions with do, does, is and are",        lessonId: "a1-basic-questions" },
+      { title: "Negative sentences",          desc: "Say no with don't, doesn't, isn't and aren't",  lessonId: "a1-negative-sentences" },
+      { title: "Present continuous",          desc: "Talk about what is happening right now",         lessonId: "a1-present-continuous" },
     ],
   },
   {

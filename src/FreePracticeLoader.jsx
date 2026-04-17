@@ -7,7 +7,7 @@ const FREE_PRACTICE_PARAMS = {
     ageBand:        "Little Learners",
     character:      "Biscuit the Dog",
     characterEmoji: "🐕",
-    topics:         "Simple present tense, Nouns and plurals, Articles a an the, Subject pronouns, Verb to be, Basic adjectives, Simple sentences, Possessives",
+    topics:         "Simple present tense, Nouns and plurals, Articles a an the, Subject pronouns, Verb to be, Basic adjectives, Simple sentences, Possessives, Simple present tense I you we they, Special plurals, Basic question formation, Negative sentences, Present continuous",
   },
   A2: {
     level:          "A2",
