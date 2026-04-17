@@ -11,16 +11,32 @@ import { lesson as a1Lesson, allQuestions as a1Questions } from "./lesson";
 import { lesson as a2Lesson, allQuestions as a2Questions } from "./lessonA2";
 import { lesson as b1Lesson, allQuestions as b1Questions } from "./lessonB1";
 import { lesson as b2Lesson, allQuestions as b2Questions } from "./lessonB2";
+import {
+  lessonA1Topic2, allQuestionsA1Topic2,
+  lessonA1Topic3, allQuestionsA1Topic3,
+  lessonA1Topic4, allQuestionsA1Topic4,
+  lessonA1Topic5, allQuestionsA1Topic5,
+  lessonA1Topic6, allQuestionsA1Topic6,
+  lessonA1Topic7, allQuestionsA1Topic7,
+  lessonA1Topic8, allQuestionsA1Topic8,
+} from "./lessonsA1";
 import "./App.css";
 
 const PLACEMENT_KEY = "grammarup_placement_done";
 const PROFILE_KEY   = "grammarup_profile";
 
 const LESSONS_MAP = {
-  "a1-simple-present":   { lesson: a1Lesson, allQuestions: a1Questions },
-  "a2-simple-past":      { lesson: a2Lesson, allQuestions: a2Questions },
-  "b1-modal-verbs":      { lesson: b1Lesson, allQuestions: b1Questions },
-  "b2-relative-clauses": { lesson: b2Lesson, allQuestions: b2Questions },
+  "a1-simple-present":    { lesson: a1Lesson,       allQuestions: a1Questions },
+  "a1-nouns-plurals":     { lesson: lessonA1Topic2,  allQuestions: allQuestionsA1Topic2 },
+  "a1-articles":          { lesson: lessonA1Topic3,  allQuestions: allQuestionsA1Topic3 },
+  "a1-subject-pronouns":  { lesson: lessonA1Topic4,  allQuestions: allQuestionsA1Topic4 },
+  "a1-verb-to-be":        { lesson: lessonA1Topic5,  allQuestions: allQuestionsA1Topic5 },
+  "a1-basic-adjectives":  { lesson: lessonA1Topic6,  allQuestions: allQuestionsA1Topic6 },
+  "a1-simple-sentences":  { lesson: lessonA1Topic7,  allQuestions: allQuestionsA1Topic7 },
+  "a1-possessives":       { lesson: lessonA1Topic8,  allQuestions: allQuestionsA1Topic8 },
+  "a2-simple-past":       { lesson: a2Lesson,        allQuestions: a2Questions },
+  "b1-modal-verbs":       { lesson: b1Lesson,        allQuestions: b1Questions },
+  "b2-relative-clauses":  { lesson: b2Lesson,        allQuestions: b2Questions },
 };
 
 function getXpEarned(results) {
