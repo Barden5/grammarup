@@ -911,7 +911,7 @@ export const allQuestionsA1Topic8 = lessonA1Topic8.exercises.flatMap((ex) =>
 // ─── A1 Topic 9 — Simple present: I, you, we, they ───────────────────────────
 
 export const lessonA1Topic9 = {
-  id: "a1-present-i-you-we-they",
+  id: "a1-9",
   level: "A1",
   title: "Simple Present: I, You, We, They",
   subtitle: "No -s for I, you, we, and they!",
@@ -1041,7 +1041,7 @@ export const allQuestionsA1Topic9 = lessonA1Topic9.exercises.flatMap((ex) =>
 // ─── A1 Topic 10 — Nouns and plurals: special plurals ────────────────────────
 
 export const lessonA1Topic10 = {
-  id: "a1-special-plurals",
+  id: "a1-10",
   level: "A1",
   title: "Special Plurals",
   subtitle: "Words that change in a special way!",
@@ -1171,7 +1171,7 @@ export const allQuestionsA1Topic10 = lessonA1Topic10.exercises.flatMap((ex) =>
 // ─── A1 Topic 11 — Basic question formation ──────────────────────────────────
 
 export const lessonA1Topic11 = {
-  id: "a1-basic-questions",
+  id: "a1-11",
   level: "A1",
   title: "Basic Question Formation",
   subtitle: "Ask questions with do, does, is and are!",
@@ -1301,7 +1301,7 @@ export const allQuestionsA1Topic11 = lessonA1Topic11.exercises.flatMap((ex) =>
 // ─── A1 Topic 12 — Negative sentences ────────────────────────────────────────
 
 export const lessonA1Topic12 = {
-  id: "a1-negative-sentences",
+  id: "a1-12",
   level: "A1",
   title: "Negative Sentences",
   subtitle: "Say no with don't, doesn't, isn't and aren't!",
@@ -1431,7 +1431,7 @@ export const allQuestionsA1Topic12 = lessonA1Topic12.exercises.flatMap((ex) =>
 // ─── A1 Topic 13 — Present continuous ────────────────────────────────────────
 
 export const lessonA1Topic13 = {
-  id: "a1-present-continuous",
+  id: "a1-13",
   level: "A1",
   title: "Present Continuous",
   subtitle: "Talk about what is happening right now!",
