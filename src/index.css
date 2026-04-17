@@ -618,14 +618,14 @@ body {
   transition: border-color 0.12s, background 0.12s, transform 0.08s;
 }
 
-.choice-btn:hover:not(.correct):not(.wrong) {
+.choice-btn:hover:not(.correct):not(.wrong):not(.wrong-attempt) {
   border-color: var(--purple);
   border-bottom-color: var(--purple-dark);
   background: var(--purple-light);
   color: var(--purple);
 }
 
-.choice-btn:active:not(.correct):not(.wrong) {
+.choice-btn:active:not(.correct):not(.wrong):not(.wrong-attempt) {
   transform: translateY(2px);
   border-bottom-width: 2px;
 }
@@ -642,6 +642,27 @@ body {
   border-bottom-color: var(--red-dark);
   background: var(--red-light);
   color: var(--red-dark);
+}
+
+/* Exercise 2: wrong attempt (retryable — softer than .wrong) */
+.choice-btn.wrong-attempt {
+  border-color: var(--red);
+  border-bottom-color: var(--red-dark);
+  background: var(--red-light);
+  color: var(--red-dark);
+  opacity: 0.6;
+}
+
+/* Exercise 2: mistake highlighting in sentence */
+.mistake-word {
+  color: #dc2626;
+  font-weight: 800;
+  text-decoration: underline wavy #dc2626;
+}
+
+.corrected-word {
+  color: #166534;
+  font-weight: 800;
 }
 
 /* Feedback banner */

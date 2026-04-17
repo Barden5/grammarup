@@ -10,10 +10,55 @@ function renderBold(text) {
   );
 }
 
+/**
+ * Split a sentence at the first occurrence of wrongWord (whole-word match).
+ * Returns [before, matchedWord, after].
+ */
+function splitAtWrongWord(sentence, wrongWord) {
+  const escaped = wrongWord.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const regex = new RegExp(`\\b${escaped}\\b`);
+  const match = regex.exec(sentence);
+  if (match) {
+    const idx = match.index;
+    return [
+      sentence.slice(0, idx),
+      sentence.slice(idx, idx + match[0].length),
+      sentence.slice(idx + match[0].length),
+    ];
+  }
+  // Fallback for non-word tokens (e.g. "???")
+  const idx = sentence.indexOf(wrongWord);
+  if (idx !== -1) {
+    return [
+      sentence.slice(0, idx),
+      wrongWord,
+      sentence.slice(idx + wrongWord.length),
+    ];
+  }
+  return [sentence, "", ""];
+}
+
+/** Renders the mistake sentence with wrong word in red or corrected word in green. */
+function MistakeSentence({ sentence, wrongWord, answeredCorrectly, correctAnswer }) {
+  const [before, highlighted, after] = splitAtWrongWord(sentence, wrongWord);
+  return (
+    <span>
+      {before}
+      {answeredCorrectly ? (
+        <strong className="corrected-word">{correctAnswer}</strong>
+      ) : (
+        <strong className="mistake-word">{highlighted || wrongWord}</strong>
+      )}
+      {after}
+    </span>
+  );
+}
+
 export default function LessonScreen({ lesson, allQuestions, onFinish, onBack }) {
   const [step, setStep] = useState("intro"); // "intro" | "quiz"
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(null);      // correct choice locked in
+  const [wrongChoice, setWrongChoice] = useState(null); // Ex2 wrong attempt (retryable)
   const [results, setResults] = useState([]);
   const [showBurst, setShowBurst] = useState(false);
   const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
@@ -22,15 +67,28 @@ export default function LessonScreen({ lesson, allQuestions, onFinish, onBack })
   const current = allQuestions[questionIndex];
   const isCorrect = selected !== null && selected === current.answer;
   const isLast = questionIndex === total - 1;
+  const isExerciseTwo = Boolean(current.wrongSentence);
 
   const progressPct = (questionIndex / total) * 100;
 
   function handleChoice(choice) {
-    if (selected !== null) return;
-    setSelected(choice);
-    if (choice === current.answer) {
-      setShowBurst(true);
-      setTimeout(() => setShowBurst(false), 600);
+    if (selected !== null) return; // already locked in correctly
+
+    if (isExerciseTwo) {
+      if (choice === current.answer) {
+        setWrongChoice(null);
+        setSelected(choice);
+        setShowBurst(true);
+        setTimeout(() => setShowBurst(false), 600);
+      } else {
+        setWrongChoice(choice); // show hint, keep buttons active for retry
+      }
+    } else {
+      setSelected(choice);
+      if (choice === current.answer) {
+        setShowBurst(true);
+        setTimeout(() => setShowBurst(false), 600);
+      }
     }
   }
 
@@ -43,8 +101,15 @@ export default function LessonScreen({ lesson, allQuestions, onFinish, onBack })
       setResults(newResults);
       setQuestionIndex(questionIndex + 1);
       setSelected(null);
+      setWrongChoice(null);
     }
   }
+
+  const correctFeedback = lesson.feedback.correct(current.answer);
+  const wrongFeedback = lesson.feedback.wrong(current.answer);
+
+  const showFeedback = selected !== null || wrongChoice !== null;
+  const feedbackIsCorrect = selected !== null && isCorrect;
 
   const leaveConfirmModal = showLeaveConfirm && (
     <div className="confirm-overlay">
@@ -103,8 +168,6 @@ export default function LessonScreen({ lesson, allQuestions, onFinish, onBack })
   }
 
   // ── QUIZ ───────────────────────────────────────────────────────────────────
-  const correctFeedback = lesson.feedback.correct(current.answer);
-  const wrongFeedback = lesson.feedback.wrong(current.answer);
 
   // Detect exercise boundary for a section label
   const showExerciseLabel =
@@ -117,13 +180,11 @@ export default function LessonScreen({ lesson, allQuestions, onFinish, onBack })
       <div className="screen-topbar">
         <button className="back-btn" onClick={() => setShowLeaveConfirm(true)}>←</button>
       </div>
+
       {/* Progress bar */}
       <div className="progress-wrap">
         <div className="progress-bar">
-          <div
-            className="progress-fill"
-            style={{ width: `${progressPct}%` }}
-          />
+          <div className="progress-fill" style={{ width: `${progressPct}%` }} />
         </div>
         <div className="progress-meta">
           <span className="progress-label">{questionIndex + 1} / {total}</span>
@@ -142,14 +203,29 @@ export default function LessonScreen({ lesson, allQuestions, onFinish, onBack })
 
       {/* Question card */}
       <div className={`question-card ${showBurst ? "burst" : ""}`}>
-        <p className="prompt">{current.prompt}</p>
+        <p className="prompt">
+          {isExerciseTwo ? (
+            <MistakeSentence
+              sentence={current.wrongSentence}
+              wrongWord={current.wrongWord}
+              answeredCorrectly={selected !== null}
+              correctAnswer={current.answer}
+            />
+          ) : (
+            current.prompt
+          )}
+        </p>
 
         <div className="choices-col">
           {current.choices.map((choice) => {
             let cls = "choice-btn";
             if (selected !== null) {
+              // Locked in: show correct green, selected-wrong red
               if (choice === current.answer) cls += " correct";
               else if (choice === selected) cls += " wrong";
+            } else if (isExerciseTwo && choice === wrongChoice) {
+              // Ex2 wrong attempt: soft red, buttons still active
+              cls += " wrong-attempt";
             }
             return (
               <button
@@ -165,16 +241,19 @@ export default function LessonScreen({ lesson, allQuestions, onFinish, onBack })
       </div>
 
       {/* Feedback banner */}
-      {selected !== null && (
-        <div className={`feedback-banner ${isCorrect ? "feedback-correct" : "feedback-wrong"}`}>
-          <span className="feedback-emoji">{isCorrect ? "🎉" : "🤔"}</span>
-          <p>{isCorrect ? correctFeedback : wrongFeedback}</p>
+      {showFeedback && (
+        <div className={`feedback-banner ${feedbackIsCorrect ? "feedback-correct" : "feedback-wrong"}`}>
+          <span className="feedback-emoji">{feedbackIsCorrect ? "🎉" : "🤔"}</span>
+          <p>{feedbackIsCorrect ? correctFeedback : wrongFeedback}</p>
         </div>
       )}
 
-      {/* Next button */}
+      {/* Next button — only appears once answered correctly */}
       {selected !== null && (
-        <button className={`btn-next ${isCorrect ? "btn-next-correct" : "btn-next-wrong"}`} onClick={handleNext}>
+        <button
+          className={`btn-next ${isCorrect ? "btn-next-correct" : "btn-next-wrong"}`}
+          onClick={handleNext}
+        >
           {isLast ? "See My Results! 🏆" : "Next →"}
         </button>
       )}
