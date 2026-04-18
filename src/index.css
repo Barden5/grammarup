@@ -883,8 +883,9 @@ body {
 
 /* ── Placement quiz ── */
 .pt-quiz {
-  padding-top: 8px;
   gap: 20px;
+  justify-content: center;
+  min-height: calc(100svh - max(24px, env(safe-area-inset-top)) - max(64px, env(safe-area-inset-bottom)));
 }
 
 /* ── Placement results ── */
