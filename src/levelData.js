@@ -9,7 +9,7 @@ export const LEVELS = [
     character:      "Biscuit",
     characterEmoji: "🐕",
     accent:         "green",
-    cardDescription: "13 grammar topics — fully complete!",
+    cardDescription: "13 grammar topics",
     topics: [
       { title: "Simple present tense — he, she, it",   desc: "Add -s to action words for one person or thing", lessonId: "a1-simple-present" },
       { title: "Simple present tense — I, you, we, they", desc: "No -s for I, you, we and they",           lessonId: "a1-9" },
