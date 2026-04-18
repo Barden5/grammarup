@@ -1,5 +1,11 @@
 import { useState } from "react";
 
+const EXERCISE_TYPE_LABELS = {
+  "Multiple Choice": "Pick the right word",
+  "Find the Mistake": "Fix the mistake",
+  "Fill in the Blank": "Fill in the blank",
+};
+
 function renderBold(text) {
   return (
     <span
@@ -155,7 +161,7 @@ export default function LessonScreen({ lesson, allQuestions, onFinish, onBack })
           {lesson.exercises.map((ex) => (
             <div key={ex.id} className="exercise-chip">
               <span>{ex.icon}</span>
-              <span>{ex.label}: {ex.type}</span>
+              <span>{ex.label}: {EXERCISE_TYPE_LABELS[ex.type] ?? ex.type}</span>
             </div>
           ))}
         </div>
@@ -197,7 +203,7 @@ export default function LessonScreen({ lesson, allQuestions, onFinish, onBack })
         <div className="exercise-header">
           <span className="exercise-icon">{current.exerciseIcon}</span>
           <span className="exercise-label">{current.exerciseLabel}</span>
-          <span className="exercise-type">{current.exerciseType}</span>
+          <span className="exercise-type">{EXERCISE_TYPE_LABELS[current.exerciseType] ?? current.exerciseType}</span>
         </div>
       )}
 
