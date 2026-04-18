@@ -2121,42 +2121,20 @@ body {
 /* Feature badges */
 .splash-badges {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
   animation: fadeUp 0.35s ease 0.30s both;
 }
 
 .splash-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 14px 20px;
-  border-radius: var(--radius-md);
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  border: 2px solid transparent;
-}
-
-.splash-badge-green {
-  background: var(--green-light);
-  color: var(--green-dark);
-  border-color: #86efac;
-}
-
-.splash-badge-blue {
-  background: var(--blue-light);
-  color: #1d4ed8;
-  border-color: #93c5fd;
-}
-
-.splash-badge-purple {
   background: var(--purple-light);
   color: var(--purple);
-  border-color: #c4b5fd;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 1.5px solid #c4b5fd;
 }
 
 /* CTA button */
