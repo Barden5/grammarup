@@ -2056,6 +2056,115 @@ body {
 }
 
 /* ══════════════════════════════
+   SPLASH SCREEN
+══════════════════════════════ */
+.splash-screen {
+  padding-top: 48px;
+  gap: 32px;
+  text-align: center;
+  align-items: center;
+}
+
+/* Logo block */
+.splash-logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.splash-emoji {
+  font-size: 72px;
+  line-height: 1;
+  animation: pop 0.55s ease 0.05s both;
+  filter: drop-shadow(0 4px 12px rgba(108,71,255,0.30));
+}
+
+.splash-app-name {
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: -2.5px;
+  line-height: 1;
+  background: linear-gradient(135deg, #6c47ff 0%, #3b82f6 45%, #22c55e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeUp 0.35s ease 0.1s both;
+}
+
+.splash-tagline {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--gray-600);
+  letter-spacing: 0.01em;
+  animation: fadeUp 0.35s ease 0.18s both;
+}
+
+/* Description */
+.splash-desc-block {
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.35s ease 0.24s both;
+}
+
+.splash-desc {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--gray-600);
+  line-height: 1.65;
+}
+
+/* Feature badges */
+.splash-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  animation: fadeUp 0.35s ease 0.30s both;
+}
+
+.splash-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border: 2px solid transparent;
+}
+
+.splash-badge-green {
+  background: var(--green-light);
+  color: var(--green-dark);
+  border-color: #86efac;
+}
+
+.splash-badge-blue {
+  background: var(--blue-light);
+  color: #1d4ed8;
+  border-color: #93c5fd;
+}
+
+.splash-badge-purple {
+  background: var(--purple-light);
+  color: var(--purple);
+  border-color: #c4b5fd;
+}
+
+/* CTA button */
+.splash-cta {
+  animation: fadeUp 0.35s ease 0.36s both;
+}
+
+/* ══════════════════════════════
    SMALL PHONE OVERRIDES (≤ 390px)
 ══════════════════════════════ */
 @media (max-width: 390px) {

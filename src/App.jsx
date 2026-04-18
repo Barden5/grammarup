@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SplashScreen from "./SplashScreen";
 import HomeScreen from "./HomeScreen";
 import LevelPage from "./LevelPage";
 import LessonScreen from "./LessonScreen";
@@ -126,7 +127,7 @@ export default function App() {
   const [profile, setProfile] = useState(loadProfile);
 
   const [screen, setScreen] = useState(() => {
-    if (!localStorage.getItem(PLACEMENT_KEY)) return "placement";
+    if (!localStorage.getItem(PLACEMENT_KEY)) return "splash";
     if (!loadProfile())                        return "profile-setup";
     return "home";
   });
@@ -264,6 +265,10 @@ export default function App() {
   // ── Render ────────────────────────────────────────────────────────────────
   return (
     <div className="app">
+
+      {screen === "splash" && (
+        <SplashScreen onGetStarted={() => setScreen("placement")} />
+      )}
 
       {screen === "placement" && (
         <PlacementTest onComplete={handlePlacementComplete} onQuit={handlePlacementQuit} />
