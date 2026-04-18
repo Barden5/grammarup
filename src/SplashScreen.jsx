@@ -19,9 +19,9 @@ export default function SplashScreen({ onGetStarted }) {
 
       {/* Feature badges */}
       <div className="splash-badges">
-        <span className="splash-badge">📚 43 grammar lessons</span>
-        <span className="splash-badge">🏆 4 levels: A1 to B2</span>
-        <span className="splash-badge">✨ AI-powered practice</span>
+        <span className="splash-badge">📚 43 lessons</span>
+        <span className="splash-badge">🏆 4 levels: A1–B2</span>
+        <span className="splash-badge">✨ AI practice</span>
       </div>
 
       {/* CTA */}
