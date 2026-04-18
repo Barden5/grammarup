@@ -114,11 +114,11 @@ export default function HomeScreen({
                   <div className="lc-mini-track">
                     <div
                       className="lc-mini-fill"
-                      style={{ width: `${(done / 8) * 100}%` }}
+                      style={{ width: `${(done / lvl.topics.length) * 100}%` }}
                     />
                   </div>
                   <span className="lc-mini-label">
-                    {locked ? "Locked" : `${done}/8`}
+                    {locked ? "Locked" : `${done}/${lvl.topics.length}`}
                   </span>
                 </div>
               </div>
