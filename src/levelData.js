@@ -30,7 +30,7 @@ export const LEVELS = [
     id:             "A2",
     level:          "A2",
     tier:           "Kids",
-    ageBand:        "Ages 7–9",
+    ageBand:        "Ages 8–10",
     character:      "Marco",
     characterEmoji: "🧪",
     accent:         "blue",
