@@ -15,7 +15,7 @@ const FREE_PRACTICE_PARAMS = {
     ageBand:        "Kids",
     character:      "Marco a 9-year-old who loves science",
     characterEmoji: "🧪",
-    topics:         "Simple past tense, Irregular past verbs, WH questions, Comparatives, Conjunctions, Prepositions of place, Prepositions of time, There is and there are",
+    topics:         "Simple past tense, Irregular past verbs, WH questions, Comparatives, Conjunctions, Prepositions of place, Prepositions of time, There is and there are, Future tense will and going to, Can and cant",
   },
   B1: {
     level:          "B1",
