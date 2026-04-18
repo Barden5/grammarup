@@ -47,6 +47,17 @@ import {
   lessonB1Topic9,  allQuestionsB1Topic9,
   lessonB1Topic10, allQuestionsB1Topic10,
 } from "./lessonsB1";
+import {
+  lessonB2Topic2,  allQuestionsB2Topic2,
+  lessonB2Topic3,  allQuestionsB2Topic3,
+  lessonB2Topic4,  allQuestionsB2Topic4,
+  lessonB2Topic5,  allQuestionsB2Topic5,
+  lessonB2Topic6,  allQuestionsB2Topic6,
+  lessonB2Topic7,  allQuestionsB2Topic7,
+  lessonB2Topic8,  allQuestionsB2Topic8,
+  lessonB2Topic9,  allQuestionsB2Topic9,
+  lessonB2Topic10, allQuestionsB2Topic10,
+} from "./lessonsB2";
 import "./App.css";
 
 const PLACEMENT_KEY = "grammarup_placement_done";
@@ -86,7 +97,16 @@ const LESSONS_MAP = {
   "b1-8":  { lesson: lessonB1Topic8,  allQuestions: allQuestionsB1Topic8 },
   "b1-9":  { lesson: lessonB1Topic9,  allQuestions: allQuestionsB1Topic9 },
   "b1-10": { lesson: lessonB1Topic10, allQuestions: allQuestionsB1Topic10 },
-  "b2-relative-clauses":  { lesson: b2Lesson,        allQuestions: b2Questions },
+  "b2-relative-clauses":  { lesson: b2Lesson,         allQuestions: b2Questions },
+  "b2-2":  { lesson: lessonB2Topic2,  allQuestions: allQuestionsB2Topic2 },
+  "b2-3":  { lesson: lessonB2Topic3,  allQuestions: allQuestionsB2Topic3 },
+  "b2-4":  { lesson: lessonB2Topic4,  allQuestions: allQuestionsB2Topic4 },
+  "b2-5":  { lesson: lessonB2Topic5,  allQuestions: allQuestionsB2Topic5 },
+  "b2-6":  { lesson: lessonB2Topic6,  allQuestions: allQuestionsB2Topic6 },
+  "b2-7":  { lesson: lessonB2Topic7,  allQuestions: allQuestionsB2Topic7 },
+  "b2-8":  { lesson: lessonB2Topic8,  allQuestions: allQuestionsB2Topic8 },
+  "b2-9":  { lesson: lessonB2Topic9,  allQuestions: allQuestionsB2Topic9 },
+  "b2-10": { lesson: lessonB2Topic10, allQuestions: allQuestionsB2Topic10 },
 };
 
 function getXpEarned(results) {

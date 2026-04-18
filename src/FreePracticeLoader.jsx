@@ -31,7 +31,7 @@ const FREE_PRACTICE_PARAMS = {
     ageBand:        "Tweens",
     character:      "Zara a 13-year-old making a documentary",
     characterEmoji: "🎬",
-    topics:         "Relative clauses, Passive voice, First conditional, Second conditional, Reported speech, Past perfect, Gerunds and infinitives, Linking words",
+    topics:         "Relative clauses, Passive voice, First conditional, Second conditional, Third conditional, Wish sentences, Reported speech, Past perfect, Gerunds and infinitives, Linking words",
   },
 };
 
