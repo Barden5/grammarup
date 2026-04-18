@@ -23,7 +23,7 @@ const FREE_PRACTICE_PARAMS = {
     ageBand:        "Kids",
     character:      "Priya an 11-year-old on her school robotics team",
     characterEmoji: "🤖",
-    topics:         "Modal verbs can should must, Modal verbs could would might, Present continuous, Comparatives and superlatives, Compound sentences, Future tense will and going to, Present perfect, Adverbs of frequency",
+    topics:         "Modal verbs can should must, Modal verbs could would might, Superlatives, Compound sentences, Present perfect, Adverbs of frequency, Past continuous, Used to, Infinitives of purpose, Relative pronouns who and which",
   },
   B2: {
     level:          "B2",

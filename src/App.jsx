@@ -36,6 +36,17 @@ import {
   lessonA2Topic9,  allQuestionsA2Topic9,
   lessonA2Topic10, allQuestionsA2Topic10,
 } from "./lessonsA2";
+import {
+  lessonB1Topic2,  allQuestionsB1Topic2,
+  lessonB1Topic3,  allQuestionsB1Topic3,
+  lessonB1Topic4,  allQuestionsB1Topic4,
+  lessonB1Topic5,  allQuestionsB1Topic5,
+  lessonB1Topic6,  allQuestionsB1Topic6,
+  lessonB1Topic7,  allQuestionsB1Topic7,
+  lessonB1Topic8,  allQuestionsB1Topic8,
+  lessonB1Topic9,  allQuestionsB1Topic9,
+  lessonB1Topic10, allQuestionsB1Topic10,
+} from "./lessonsB1";
 import "./App.css";
 
 const PLACEMENT_KEY = "grammarup_placement_done";
@@ -65,7 +76,16 @@ const LESSONS_MAP = {
   "a2-8":  { lesson: lessonA2Topic8,  allQuestions: allQuestionsA2Topic8 },
   "a2-9":  { lesson: lessonA2Topic9,  allQuestions: allQuestionsA2Topic9 },
   "a2-10": { lesson: lessonA2Topic10, allQuestions: allQuestionsA2Topic10 },
-  "b1-modal-verbs":       { lesson: b1Lesson,        allQuestions: b1Questions },
+  "b1-modal-verbs":       { lesson: b1Lesson,         allQuestions: b1Questions },
+  "b1-2":  { lesson: lessonB1Topic2,  allQuestions: allQuestionsB1Topic2 },
+  "b1-3":  { lesson: lessonB1Topic3,  allQuestions: allQuestionsB1Topic3 },
+  "b1-4":  { lesson: lessonB1Topic4,  allQuestions: allQuestionsB1Topic4 },
+  "b1-5":  { lesson: lessonB1Topic5,  allQuestions: allQuestionsB1Topic5 },
+  "b1-6":  { lesson: lessonB1Topic6,  allQuestions: allQuestionsB1Topic6 },
+  "b1-7":  { lesson: lessonB1Topic7,  allQuestions: allQuestionsB1Topic7 },
+  "b1-8":  { lesson: lessonB1Topic8,  allQuestions: allQuestionsB1Topic8 },
+  "b1-9":  { lesson: lessonB1Topic9,  allQuestions: allQuestionsB1Topic9 },
+  "b1-10": { lesson: lessonB1Topic10, allQuestions: allQuestionsB1Topic10 },
   "b2-relative-clauses":  { lesson: b2Lesson,        allQuestions: b2Questions },
 };
 
