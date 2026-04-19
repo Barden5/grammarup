@@ -10,7 +10,7 @@ const ACCENT_HEADER = {
 
 export default function HomeScreen({
   xp, streak, onLevelOpen,
-  recommendedLevel, profile, onProfileOpen,
+  recommendedLevel, profile, onProfileOpen, onSettingsOpen,
 }) {
   const xpInLevel = xp % 100;
   const level     = Math.floor(xp / 100) + 1;
@@ -39,12 +39,22 @@ export default function HomeScreen({
               <span className="home-hi">Hi {profile.name}!</span>
               <span className="home-level-tag">{profile.level}</span>
             </div>
+            <button className="home-gear-btn" onClick={onSettingsOpen} aria-label="Settings">
+              ⚙️
+            </button>
           </div>
         </div>
       ) : (
         <div className="home-header">
-          <div className="app-name">GrammarUp</div>
-          <p className="app-tagline">Learn English grammar every day!</p>
+          <div className="home-header-row">
+            <div>
+              <div className="app-name">GrammarUp</div>
+              <p className="app-tagline">Learn English grammar every day!</p>
+            </div>
+            <button className="home-gear-btn" onClick={onSettingsOpen} aria-label="Settings">
+              ⚙️
+            </button>
+          </div>
         </div>
       )}
 

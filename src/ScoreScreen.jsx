@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { playComplete, playXP } from "./soundEffects";
+
 export default function ScoreScreen({ results, lesson, allQuestions, xpEarned, onRestart, onNextLesson }) {
   const total = results.length;
   const correct = results.filter(Boolean).length;
@@ -8,6 +11,12 @@ export default function ScoreScreen({ results, lesson, allQuestions, xpEarned, o
     correct === 9 ? perfect : correct >= 6 ? good : tryAgain;
 
   const stars = correct === 9 ? 3 : correct >= 6 ? 2 : 1;
+
+  useEffect(() => {
+    playComplete();
+    const t = setTimeout(playXP, 600);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <div className="screen score-screen">

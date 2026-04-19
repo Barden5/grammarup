@@ -3,10 +3,25 @@ import { PROFILE_COLORS, PROFILE_AVATARS, getProfileColor } from "./profileData"
 
 // ── View mode ─────────────────────────────────────────────────────────────────
 function ProfileView({ profile, xp, onBack, onEditStart, onRetake }) {
+  const [showRetakeConfirm, setShowRetakeConfirm] = useState(false);
   const pc = getProfileColor(profile.color);
 
   return (
     <div className="screen pv-screen">
+
+      {/* Retake confirmation modal */}
+      {showRetakeConfirm && (
+        <div className="confirm-overlay">
+          <div className="confirm-card">
+            <p className="confirm-title">Retake placement test?</p>
+            <p className="confirm-message">This will reset your level. Are you sure?</p>
+            <div className="confirm-buttons">
+              <button className="confirm-btn-action" onClick={onRetake}>Yes, retake</button>
+              <button className="confirm-btn-cancel" onClick={() => setShowRetakeConfirm(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Top bar */}
       <div className="pv-topbar">
@@ -45,7 +60,7 @@ function ProfileView({ profile, xp, onBack, onEditStart, onRetake }) {
 
       {/* Actions */}
       <div className="pv-actions">
-        <button className="pv-retake-btn" onClick={onRetake}>
+        <button className="pv-retake-btn" onClick={() => setShowRetakeConfirm(true)}>
           🔄 Retake placement test
         </button>
       </div>

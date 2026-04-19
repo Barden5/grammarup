@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { playCorrect, playWrong } from "./soundEffects";
 
 const EXERCISE_TYPE_LABELS = {
   "Multiple Choice": "Pick the right word",
@@ -86,14 +87,19 @@ export default function LessonScreen({ lesson, allQuestions, onFinish, onBack })
         setSelected(choice);
         setShowBurst(true);
         setTimeout(() => setShowBurst(false), 600);
+        playCorrect();
       } else {
         setWrongChoice(choice); // show hint, keep buttons active for retry
+        playWrong();
       }
     } else {
       setSelected(choice);
       if (choice === current.answer) {
         setShowBurst(true);
         setTimeout(() => setShowBurst(false), 600);
+        playCorrect();
+      } else {
+        playWrong();
       }
     }
   }

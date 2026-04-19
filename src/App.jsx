@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SplashScreen from "./SplashScreen";
 import HomeScreen from "./HomeScreen";
+import SettingsScreen from "./SettingsScreen";
 import LevelPage from "./LevelPage";
 import LessonScreen from "./LessonScreen";
 import ScoreScreen from "./ScoreScreen";
@@ -289,7 +290,12 @@ export default function App() {
           recommendedLevel={recommendedLevel}
           profile={profile}
           onProfileOpen={() => setScreen("profile")}
+          onSettingsOpen={() => setScreen("settings")}
         />
+      )}
+
+      {screen === "settings" && (
+        <SettingsScreen onBack={() => setScreen("home")} />
       )}
 
       {screen === "level" && selectedLevel && (
