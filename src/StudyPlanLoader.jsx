@@ -29,7 +29,10 @@ async function callGeminiAPI(levelId, selectedTopics) {
     `Questions must feel connected to a story featuring ${p.character}\n` +
     `Write all instructions at the appropriate reading level for ELL students\n` +
     `Wrong answer options (distractors) must be plausible — not obviously silly\n` +
-    `Never repeat the same question or sentence structure twice\n\n` +
+    `Never repeat the same question or sentence structure twice\n` +
+    `CRITICAL: Only create exercises for the EXACT topics the student selected. Do not add any additional topics. If the student selected 2 topics create exactly 2 exercises. If they selected 3 topics create exactly 3 exercises. Never add extra topics.\n` +
+    `IMPORTANT: Never use ambiguous subjects like 'my friend', 'a person', or 'someone' in questions about pronouns. Always use a name like Tom, Sara, or Mia, or a clearly gendered noun so the correct pronoun answer is unambiguous. Every question must have exactly ONE clearly correct answer.\n` +
+    `IMPORTANT: Biscuit is a dog and should always be referred to using IT or ITS — never he, him, his, she, or her. Biscuit is always referred to as 'it' in all questions, hints, and feedback. For example: 'Biscuit wags ITS tail' not 'Biscuit wags his tail'.\n\n` +
     `Return ONLY a valid JSON object with no markdown, no backticks, no extra text. ` +
     `The JSON must have these exact keys: ` +
     `topic (string — write "My Study Plan: ${topicList}"), ` +

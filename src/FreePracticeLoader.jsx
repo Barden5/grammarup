@@ -47,7 +47,10 @@ async function callGeminiAPI(levelId) {
     `Questions should feel connected to a short story featuring ${p.character}\n` +
     `Write all instructions at the appropriate reading level for ELL students\n` +
     `Wrong answer options (distractors) must be plausible — not obviously silly\n` +
-    `Never repeat the same question or sentence structure twice\n\n` +
+    `Never repeat the same question or sentence structure twice\n` +
+    `CRITICAL: Only create exercises for the EXACT topics the student selected. Do not add any additional topics. If the student selected 2 topics create exactly 2 exercises. If they selected 3 topics create exactly 3 exercises. Never add extra topics.\n` +
+    `IMPORTANT: Never use ambiguous subjects like 'my friend', 'a person', or 'someone' in questions about pronouns. Always use a name like Tom, Sara, or Mia, or a clearly gendered noun so the correct pronoun answer is unambiguous. Every question must have exactly ONE clearly correct answer.\n` +
+    `IMPORTANT: Biscuit is a dog and should always be referred to using IT or ITS — never he, him, his, she, or her. Biscuit is always referred to as 'it' in all questions, hints, and feedback. For example: 'Biscuit wags ITS tail' not 'Biscuit wags his tail'.\n\n` +
     `Return ONLY a valid JSON object with no markdown, no backticks, no extra text. The JSON must have these exact keys: topic (string — write Mixed Practice followed by the 3 topic names), explanation (string — brief friendly intro to the mixed review session), examples (array of 3 strings), exercise1 (array of 3 question objects), exercise2 (array of 3 question objects), exercise3 (array of 3 question objects). Each question object must have: prompt (string with exactly one blank), options (array of exactly 3 strings), answer (string), hint (string), feedbackCorrect (string), feedbackWrong (string), exerciseLabel (string — the topic name for this exercise).`;
 
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
