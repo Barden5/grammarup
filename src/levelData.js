@@ -107,3 +107,15 @@ export function countCompletedTopics(levelTopics, completedTopics = {}) {
     (t) => t.lessonId !== null && completedTopics[t.lessonId]
   ).length;
 }
+
+/** True if every topic in a level is completed. */
+export function isLevelFullyComplete(levelId, completedTopics = {}) {
+  const lvl = LEVELS.find((l) => l.id === levelId);
+  if (!lvl) return false;
+  return lvl.topics.every((t) => completedTopics[t.lessonId]);
+}
+
+/** Returns all LEVELS entries that are fully complete. */
+export function getUnlockedStudyPlanLevels(completedTopics = {}) {
+  return LEVELS.filter((l) => isLevelFullyComplete(l.id, completedTopics));
+}
