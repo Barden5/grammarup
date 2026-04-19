@@ -31,6 +31,7 @@ export const lessonB1Topic2 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Priya's team is sharing ideas and possibilities for the competition. Pick the right modal verb!",
       questions: [
         {
           id: 1,
@@ -60,6 +61,7 @@ export const lessonB1Topic2 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "The team found some modal verb errors in their notes. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -95,6 +97,7 @@ export const lessonB1Topic2 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Priya is writing up the team's plan of possibilities. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -125,10 +128,11 @@ export const lessonB1Topic2 = {
 export const allQuestionsB1Topic2 = lessonB1Topic2.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -165,6 +169,7 @@ export const lessonB1Topic3 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "It's competition day and Priya is comparing all the robots. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -194,6 +199,7 @@ export const lessonB1Topic3 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Some superlative errors crept into the competition scoreboard. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -229,6 +235,7 @@ export const lessonB1Topic3 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Priya is finishing her competition results summary. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -259,10 +266,11 @@ export const lessonB1Topic3 = {
 export const allQuestionsB1Topic3 = lessonB1Topic3.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -299,6 +307,7 @@ export const lessonB1Topic4 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Priya is writing her competition report using connecting words. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -328,6 +337,7 @@ export const lessonB1Topic4 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Some connecting words in Priya's report are wrong. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -363,6 +373,7 @@ export const lessonB1Topic4 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Priya is polishing the final paragraphs of her competition report. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -393,10 +404,11 @@ export const lessonB1Topic4 = {
 export const allQuestionsB1Topic4 = lessonB1Topic4.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -433,6 +445,7 @@ export const lessonB1Topic5 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "The competition is over! Priya and her team are reflecting on everything they have done. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -462,6 +475,7 @@ export const lessonB1Topic5 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Some present perfect sentences in Priya's notes have mistakes. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -497,6 +511,7 @@ export const lessonB1Topic5 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Priya is writing her end-of-competition reflection. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -527,10 +542,11 @@ export const lessonB1Topic5 = {
 export const allQuestionsB1Topic5 = lessonB1Topic5.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -567,6 +583,7 @@ export const lessonB1Topic6 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Priya is describing her weekly practice routine to a new friend. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -596,6 +613,7 @@ export const lessonB1Topic6 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Some frequency sentences about Priya's routine have mistakes. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -631,6 +649,7 @@ export const lessonB1Topic6 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Priya is describing her habits and routines in her competition diary. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -661,10 +680,11 @@ export const lessonB1Topic6 = {
 export const allQuestionsB1Topic6 = lessonB1Topic6.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -701,6 +721,7 @@ export const lessonB1Topic7 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Something went wrong at the competition! Priya is explaining what everyone was doing. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -730,6 +751,7 @@ export const lessonB1Topic7 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Priya spotted some past continuous errors in her incident report. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -765,6 +787,7 @@ export const lessonB1Topic7 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Priya is finishing her incident report about what happened. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -795,10 +818,11 @@ export const lessonB1Topic7 = {
 export const allQuestionsB1Topic7 = lessonB1Topic7.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -835,6 +859,7 @@ export const lessonB1Topic8 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Priya is telling her teammates how different things were when she was younger. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -864,6 +889,7 @@ export const lessonB1Topic8 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Priya found some used to mistakes in her school project. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -899,6 +925,7 @@ export const lessonB1Topic8 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Priya is writing about how her interests have changed. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -929,10 +956,11 @@ export const lessonB1Topic8 = {
 export const allQuestionsB1Topic8 = lessonB1Topic8.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -969,6 +997,7 @@ export const lessonB1Topic9 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Priya is explaining the reasons behind her competition decisions. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -998,6 +1027,7 @@ export const lessonB1Topic9 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Priya found purpose errors in her notes. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -1033,6 +1063,7 @@ export const lessonB1Topic9 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Priya is writing up why her team did each thing at the competition. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -1063,10 +1094,11 @@ export const lessonB1Topic9 = {
 export const allQuestionsB1Topic9 = lessonB1Topic9.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -1103,6 +1135,7 @@ export const lessonB1Topic10 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Priya is writing a magazine article about the competition. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -1132,6 +1165,7 @@ export const lessonB1Topic10 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Priya found some relative pronoun errors in her article draft. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -1167,6 +1201,7 @@ export const lessonB1Topic10 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Priya is finishing her magazine article with extra details. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -1197,9 +1232,10 @@ export const lessonB1Topic10 = {
 export const allQuestionsB1Topic10 = lessonB1Topic10.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );

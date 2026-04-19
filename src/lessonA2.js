@@ -41,6 +41,7 @@ export const lesson = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Marco is telling his mum about what happened at the science fair. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -67,6 +68,7 @@ export const lesson = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Marco wrote experiment notes but made some mistakes. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -99,6 +101,7 @@ export const lesson = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Marco is writing his science fair report. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -126,9 +129,10 @@ export const lesson = {
 export const allQuestions = lesson.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType: ex.type,
-    exerciseIcon: ex.icon,
-    exerciseId: ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );

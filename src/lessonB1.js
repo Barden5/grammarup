@@ -42,6 +42,7 @@ export const lesson = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Priya's team is deciding what they can, should, and must do before the competition. Pick the right modal verb!",
       questions: [
         {
           id: 1,
@@ -68,6 +69,7 @@ export const lesson = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Someone used the wrong modal verb in the team's competition notes. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -100,6 +102,7 @@ export const lesson = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Priya is writing up the team's official competition rules. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -127,9 +130,10 @@ export const lesson = {
 export const allQuestions = lesson.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType: ex.type,
-    exerciseIcon: ex.icon,
-    exerciseId: ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );

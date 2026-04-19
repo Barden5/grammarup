@@ -31,6 +31,7 @@ export const lessonA2Topic2 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Marco is telling his mum about the school trip. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -60,6 +61,7 @@ export const lessonA2Topic2 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Marco wrote his trip report but made some irregular verb mistakes. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -95,6 +97,7 @@ export const lessonA2Topic2 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Marco is finishing his trip diary. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -125,10 +128,11 @@ export const lessonA2Topic2 = {
 export const allQuestionsA2Topic2 = lessonA2Topic2.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -165,6 +169,7 @@ export const lessonA2Topic3 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Marco is writing interview questions for the school newspaper. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -194,6 +199,7 @@ export const lessonA2Topic3 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Marco mixed up some question words in his interview notes. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -229,6 +235,7 @@ export const lessonA2Topic3 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Marco is preparing his final list of interview questions. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -259,10 +266,11 @@ export const lessonA2Topic3 = {
 export const allQuestionsA2Topic3 = lessonA2Topic3.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -299,6 +307,7 @@ export const lessonA2Topic4 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Marco and his friend are comparing their science fair experiments. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -328,6 +337,7 @@ export const lessonA2Topic4 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Some comparison sentences on the posters have mistakes. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -363,6 +373,7 @@ export const lessonA2Topic4 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Marco is writing his comparison notes for the science fair. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -393,10 +404,11 @@ export const lessonA2Topic4 = {
 export const allQuestionsA2Topic4 = lessonA2Topic4.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -433,6 +445,7 @@ export const lessonA2Topic5 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Marco is connecting his science project ideas with joining words. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -462,6 +475,7 @@ export const lessonA2Topic5 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Marco's joining words got mixed up in his project write-up. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -497,6 +511,7 @@ export const lessonA2Topic5 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Marco is putting the finishing touches on his project essay. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -527,10 +542,11 @@ export const lessonA2Topic5 = {
 export const allQuestionsA2Topic5 = lessonA2Topic5.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -567,6 +583,7 @@ export const lessonA2Topic6 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Marco's science lab is a mess! Help him describe where everything is. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -596,6 +613,7 @@ export const lessonA2Topic6 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Marco got some location words wrong in his lab notes. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -631,6 +649,7 @@ export const lessonA2Topic6 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Marco is drawing a map of the lab and labelling where everything goes. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -661,10 +680,11 @@ export const lessonA2Topic6 = {
 export const allQuestionsA2Topic6 = lessonA2Topic6.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -701,6 +721,7 @@ export const lessonA2Topic7 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Marco is planning his busy week of science experiments. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -730,6 +751,7 @@ export const lessonA2Topic7 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Some time words in Marco's timetable are wrong. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -765,6 +787,7 @@ export const lessonA2Topic7 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Marco is writing his final competition schedule. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -795,10 +818,11 @@ export const lessonA2Topic7 = {
 export const allQuestionsA2Topic7 = lessonA2Topic7.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -835,6 +859,7 @@ export const lessonA2Topic8 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Marco is describing his school science lab to his friend. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -864,6 +889,7 @@ export const lessonA2Topic8 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Marco's lab descriptions have some mistakes. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -899,6 +925,7 @@ export const lessonA2Topic8 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Marco is presenting his lab description to the class. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -929,10 +956,11 @@ export const lessonA2Topic8 = {
 export const allQuestionsA2Topic8 = lessonA2Topic8.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -969,6 +997,7 @@ export const lessonA2Topic9 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Marco is planning his next big science experiment. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -998,6 +1027,7 @@ export const lessonA2Topic9 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Marco made some future tense mistakes in his project plan. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -1033,6 +1063,7 @@ export const lessonA2Topic9 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Marco is writing his project proposal for the next competition. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -1063,10 +1094,11 @@ export const lessonA2Topic9 = {
 export const allQuestionsA2Topic9 = lessonA2Topic9.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );
 
@@ -1103,6 +1135,7 @@ export const lessonA2Topic10 = {
       label: "Exercise 1",
       type: "Multiple Choice",
       icon: "🎯",
+      storyPrompt: "Marco is filling in a science competition form. Pick the right word!",
       questions: [
         {
           id: 1,
@@ -1132,6 +1165,7 @@ export const lessonA2Topic10 = {
       label: "Exercise 2",
       type: "Find the Mistake",
       icon: "🔍",
+      storyPrompt: "Some ability statements on the competition form have mistakes. Find and fix the mistake!",
       questions: [
         {
           id: 4,
@@ -1167,6 +1201,7 @@ export const lessonA2Topic10 = {
       label: "Exercise 3",
       type: "Fill in the Blank",
       icon: "✏️",
+      storyPrompt: "Marco is listing his science skills on the competition form. Fill in the blank!",
       questions: [
         {
           id: 7,
@@ -1197,9 +1232,10 @@ export const lessonA2Topic10 = {
 export const allQuestionsA2Topic10 = lessonA2Topic10.exercises.flatMap((ex) =>
   ex.questions.map((q) => ({
     ...q,
-    exerciseLabel: ex.label,
-    exerciseType:  ex.type,
-    exerciseIcon:  ex.icon,
-    exerciseId:    ex.id,
+    exerciseLabel:       ex.label,
+    exerciseType:        ex.type,
+    exerciseIcon:        ex.icon,
+    exerciseId:          ex.id,
+    exerciseStoryPrompt: ex.storyPrompt,
   }))
 );

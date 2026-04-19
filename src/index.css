@@ -571,6 +571,19 @@ body {
   border-radius: 99px;
 }
 
+/* Story prompt */
+.story-prompt {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--purple);
+  background: var(--purple-light);
+  border-left: 4px solid var(--purple);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 10px 14px;
+  line-height: 1.5;
+}
+
 /* Question card */
 .question-card {
   width: 100%;

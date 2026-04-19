@@ -207,6 +207,11 @@ export default function LessonScreen({ lesson, allQuestions, onFinish, onBack })
         </div>
       )}
 
+      {/* Story prompt */}
+      {current.exerciseStoryPrompt && (
+        <div className="story-prompt">{current.exerciseStoryPrompt}</div>
+      )}
+
       {/* Question card */}
       <div className={`question-card ${showBurst ? "burst" : ""}`}>
         <p className="prompt">
