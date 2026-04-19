@@ -1267,12 +1267,12 @@ body {
 }
 
 .sp-lp-card-unlocked {
-  background: linear-gradient(135deg, #6c47ff 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #3d1fa8 0%, #6c47ff 100%);
   color: #fff;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(108,71,255,0.28);
+  box-shadow: 0 4px 16px rgba(61,31,168,0.35);
 }
-.sp-lp-card-unlocked:hover  { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(108,71,255,0.35); }
+.sp-lp-card-unlocked:hover  { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(61,31,168,0.45); }
 .sp-lp-card-unlocked:active { transform: translateY(0); }
 
 .sp-lp-card-locked {
