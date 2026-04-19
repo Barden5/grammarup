@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PROFILE_COLORS, PROFILE_AVATARS, getProfileColor } from "./profileData";
+import { PROFILE_COLORS, PROFILE_AVATARS, GRADES, getProfileColor, gradeToTier } from "./profileData";
 
 // ── View mode ─────────────────────────────────────────────────────────────────
 function ProfileView({ profile, xp, onBack, onEditStart, onRetake }) {
@@ -38,7 +38,12 @@ function ProfileView({ profile, xp, onBack, onEditStart, onRetake }) {
       </div>
 
       <h2 className="pv-name">{profile.name}</h2>
-      <p className="pv-grade">{profile.grade}</p>
+      <p className="pv-grade">
+        {profile.grade}
+        {gradeToTier(profile.grade) && (
+          <span className="pv-tier-tag">{gradeToTier(profile.grade)}</span>
+        )}
+      </p>
 
       {/* Stats */}
       <div className="pv-stats-card">
@@ -72,6 +77,7 @@ function ProfileView({ profile, xp, onBack, onEditStart, onRetake }) {
 // ── Edit mode ─────────────────────────────────────────────────────────────────
 function ProfileEdit({ profile, onSave, onCancel }) {
   const [name,   setName]   = useState(profile.name);
+  const [grade,  setGrade]  = useState(profile.grade ?? "");
   const [color,  setColor]  = useState(profile.color);
   const [avatar, setAvatar] = useState(profile.avatar);
 
@@ -79,7 +85,8 @@ function ProfileEdit({ profile, onSave, onCancel }) {
 
   function handleSave() {
     if (!name.trim()) return;
-    onSave({ name: name.trim(), color, avatar });
+    const tier = gradeToTier(grade);
+    onSave({ name: name.trim(), grade, ...(tier ? { tier } : {}), color, avatar });
   }
 
   return (
@@ -110,6 +117,27 @@ function ProfileEdit({ profile, onSave, onCancel }) {
           maxLength={30}
           autoComplete="off"
         />
+      </div>
+
+      {/* Grade */}
+      <div className="ps-section" style={{ width: "100%" }}>
+        <label className="ps-label">Grade</label>
+        <div className="ps-select-wrap">
+          <select
+            className="ps-select"
+            value={grade}
+            onChange={(e) => setGrade(e.target.value)}
+          >
+            <option value="">Pick your grade…</option>
+            {GRADES.map((g) => (
+              <option key={g} value={g}>{g}</option>
+            ))}
+          </select>
+          <span className="ps-select-arrow">▾</span>
+        </div>
+        {grade && gradeToTier(grade) && (
+          <p className="pv-edit-tier-hint">Age band: {gradeToTier(grade)}</p>
+        )}
       </div>
 
       {/* Favorite color */}

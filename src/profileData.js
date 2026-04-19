@@ -19,3 +19,10 @@ export const GRADES = [
 export function getProfileColor(colorId) {
   return PROFILE_COLORS.find((c) => c.id === colorId) ?? PROFILE_COLORS[4];
 }
+
+export function gradeToTier(grade) {
+  if (["Kindergarten", "Grade 1", "Grade 2"].includes(grade)) return "Little Learners";
+  if (["Grade 3", "Grade 4", "Grade 5", "Grade 6"].includes(grade)) return "Kids";
+  if (["Grade 7", "Grade 8"].includes(grade)) return "Tweens";
+  return null;
+}
