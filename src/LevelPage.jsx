@@ -1,4 +1,4 @@
-import { LEVELS, countCompletedTopics } from "./levelData";
+import { LEVELS, countCompletedTopics, isLevelFullyComplete } from "./levelData";
 
 // Unlock threshold: 1 completed topic for testing (raise to 8 for full release)
 const FP_UNLOCK_THRESHOLD = 1;
@@ -10,11 +10,12 @@ const ACCENT_HEADER = {
   purple: "lc-header-purple",
 };
 
-export default function LevelPage({ levelId, lessonsMap, profile, onStart, onFreePractice, onBack }) {
+export default function LevelPage({ levelId, lessonsMap, profile, onStart, onFreePractice, onStudyPlan, onBack }) {
   const level              = LEVELS.find((l) => l.id === levelId);
   const completedTopics    = profile?.completedTopics ?? {};
   const completedCount     = countCompletedTopics(level.topics, completedTopics);
   const fpUnlocked         = completedCount >= FP_UNLOCK_THRESHOLD;
+  const spUnlocked         = isLevelFullyComplete(levelId, completedTopics);
 
   function isTopicUnlocked(index) {
     if (index === 0) return true;
@@ -123,6 +124,25 @@ export default function LevelPage({ levelId, lessonsMap, profile, onStart, onFre
           </span>
         </div>
         {fpUnlocked && <div className="fp-card-arrow">›</div>}
+      </div>
+
+      {/* My Study Plan card */}
+      <div
+        className={`sp-lp-card ${spUnlocked ? "sp-lp-card-unlocked" : "sp-lp-card-locked"}`}
+        onClick={() => spUnlocked && onStudyPlan(levelId)}
+        role={spUnlocked ? "button" : undefined}
+        tabIndex={spUnlocked ? 0 : undefined}
+      >
+        <div className="sp-lp-card-icon">{spUnlocked ? "✨" : "🔒"}</div>
+        <div className="sp-lp-card-text">
+          <span className="sp-lp-card-title">My Study Plan</span>
+          <span className="sp-lp-card-desc">
+            {spUnlocked
+              ? "Choose your topics. AI builds your lesson."
+              : "Complete all topics to unlock"}
+          </span>
+        </div>
+        {spUnlocked && <div className="sp-lp-card-arrow">›</div>}
       </div>
 
     </div>

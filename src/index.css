@@ -1250,68 +1250,67 @@ body {
 }
 
 /* ══════════════════════════════
-   MY STUDY PLAN — HOME CARD
+   MY STUDY PLAN — LEVEL PAGE CARD
 ══════════════════════════════ */
 
-.sp-home-card {
+.sp-lp-card {
   width: 100%;
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 18px 20px;
-  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
   border: none;
-  cursor: pointer;
-  touch-action: manipulation;
   text-align: left;
-  transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
-  box-shadow: var(--shadow-lg);
+  touch-action: manipulation;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
-.sp-home-card-unlocked {
+.sp-lp-card-unlocked {
   background: linear-gradient(135deg, #6c47ff 0%, #3b82f6 100%);
   color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(108,71,255,0.28);
 }
-.sp-home-card-unlocked:hover  { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(108,71,255,0.30); }
-.sp-home-card-unlocked:active { transform: translateY(0); }
+.sp-lp-card-unlocked:hover  { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(108,71,255,0.35); }
+.sp-lp-card-unlocked:active { transform: translateY(0); }
 
-.sp-home-card-locked {
+.sp-lp-card-locked {
   background: var(--gray-100);
   color: var(--gray-400);
-  box-shadow: none;
   cursor: default;
 }
 
-.sp-home-emoji {
-  font-size: 30px;
+.sp-lp-card-icon {
+  font-size: 26px;
   line-height: 1;
   flex-shrink: 0;
 }
 
-.sp-home-text {
+.sp-lp-card-text {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
   flex: 1;
 }
 
-.sp-home-title {
-  font-size: 17px;
-  font-weight: 900;
-  letter-spacing: -0.2px;
+.sp-lp-card-title {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.1px;
 }
 
-.sp-home-sub {
+.sp-lp-card-desc {
   font-size: 12px;
   font-weight: 500;
   opacity: 0.85;
 }
 
-.sp-home-arrow {
-  font-size: 20px;
+.sp-lp-card-arrow {
+  font-size: 22px;
   font-weight: 700;
-  flex-shrink: 0;
   opacity: 0.8;
+  flex-shrink: 0;
 }
 
 /* ══════════════════════════════

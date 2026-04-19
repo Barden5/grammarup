@@ -143,7 +143,6 @@ export default function App() {
   const [streak]                               = useState(1);
   const [xpEarned,         setXpEarned]       = useState(0);
   const [recommendedLevel, setRecommendedLevel] = useState(() => loadProfile()?.level ?? null);
-  const [lessonSource,     setLessonSource]    = useState("level"); // "level" | "study-plan"
   const [spLevelId,        setSpLevelId]       = useState(null);
   const [spTopics,         setSpTopics]        = useState([]);
 
@@ -214,7 +213,7 @@ export default function App() {
 
   function handleFreePracticeReady(lessonData) {
     setFpLevel(null);
-    handleStart(lessonData, "level");
+    handleStart(lessonData);
   }
 
   function handleFreePracticeBack() {
@@ -223,8 +222,7 @@ export default function App() {
   }
 
   // ── Lesson flow ───────────────────────────────────────────────────────────
-  function handleStart(lessonData, source = "level") {
-    setLessonSource(source);
+  function handleStart(lessonData) {
     setActiveLesson(lessonData);
     setScreen("lesson");
   }
@@ -266,11 +264,7 @@ export default function App() {
   function handleNextLesson() {
     setResults([]);
     setActiveLesson(null);
-    if (lessonSource === "study-plan") {
-      setScreen("study-plan");
-    } else {
-      setScreen("level"); // selectedLevel stays set — lands on current level page
-    }
+    setScreen("level"); // selectedLevel stays set — lands on current level page
   }
 
   // ── Render ────────────────────────────────────────────────────────────────
@@ -301,7 +295,6 @@ export default function App() {
           profile={profile}
           onProfileOpen={() => setScreen("profile")}
           onSettingsOpen={() => setScreen("settings")}
-          onStudyPlanOpen={() => setScreen("study-plan")}
         />
       )}
 
@@ -309,12 +302,11 @@ export default function App() {
         <SettingsScreen onBack={() => setScreen("home")} />
       )}
 
-      {screen === "study-plan" && profile && (
+      {screen === "study-plan" && spLevelId && (
         <StudyPlanScreen
-          profile={profile}
-          onBack={() => setScreen("home")}
+          levelId={spLevelId}
+          onBack={() => setScreen("level")}
           onGenerate={(levelId, topics) => {
-            setSpLevelId(levelId);
             setSpTopics(topics);
             setScreen("study-plan-loader");
           }}
@@ -325,7 +317,7 @@ export default function App() {
         <StudyPlanLoader
           levelId={spLevelId}
           selectedTopics={spTopics}
-          onLessonReady={(lessonData) => handleStart(lessonData, "study-plan")}
+          onLessonReady={(lessonData) => handleStart(lessonData)}
           onBack={() => setScreen("study-plan")}
         />
       )}
@@ -337,6 +329,10 @@ export default function App() {
           profile={profile}
           onStart={handleStart}
           onFreePractice={handleFreePracticeStart}
+          onStudyPlan={(levelId) => {
+            setSpLevelId(levelId);
+            setScreen("study-plan");
+          }}
           onBack={handleLevelBack}
         />
       )}

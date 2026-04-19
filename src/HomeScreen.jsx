@@ -1,5 +1,5 @@
 import { getProfileColor } from "./profileData";
-import { LEVELS, isLevelAccessible, countCompletedTopics, getUnlockedStudyPlanLevels } from "./levelData";
+import { LEVELS, isLevelAccessible, countCompletedTopics } from "./levelData";
 
 const ACCENT_HEADER = {
   green:  "lc-header-green",
@@ -10,16 +10,15 @@ const ACCENT_HEADER = {
 
 export default function HomeScreen({
   xp, streak, onLevelOpen,
-  recommendedLevel, profile, onProfileOpen, onSettingsOpen, onStudyPlanOpen,
+  recommendedLevel, profile, onProfileOpen, onSettingsOpen,
 }) {
   const xpInLevel = xp % 100;
   const level     = Math.floor(xp / 100) + 1;
   const xpToNext  = 100 - xpInLevel;
   const pc        = profile ? getProfileColor(profile.color) : null;
 
-  const completedTopics    = profile?.completedTopics ?? {};
-  const studentLevel       = profile?.level ?? "A1";
-  const studyPlanUnlocked  = getUnlockedStudyPlanLevels(completedTopics).length > 0;
+  const completedTopics = profile?.completedTopics ?? {};
+  const studentLevel    = profile?.level ?? "A1";
 
   return (
     <div className="screen home-screen">
@@ -84,7 +83,7 @@ export default function HomeScreen({
       </div>
 
       {/* ── Level cards ── */}
-      <div className="level-cards" style={{ marginBottom: 0 }}>
+      <div className="level-cards">
         {LEVELS.map((lvl) => {
           const isRec    = lvl.id === recommendedLevel;
           const locked   = !isLevelAccessible(studentLevel, lvl.id);
@@ -139,33 +138,6 @@ export default function HomeScreen({
       </div>
 
       </div>
-
-      {/* ── My Study Plan card ── */}
-      <button
-        className={`sp-home-card ${studyPlanUnlocked ? "sp-home-card-unlocked" : "sp-home-card-locked"}`}
-        onClick={() => studyPlanUnlocked && onStudyPlanOpen()}
-        disabled={!studyPlanUnlocked}
-        aria-label="My Study Plan"
-      >
-        {studyPlanUnlocked ? (
-          <>
-            <span className="sp-home-emoji">✨</span>
-            <div className="sp-home-text">
-              <span className="sp-home-title">My Study Plan</span>
-              <span className="sp-home-sub">Choose your topics. AI builds your lesson.</span>
-            </div>
-            <span className="sp-home-arrow">→</span>
-          </>
-        ) : (
-          <>
-            <span className="sp-home-emoji">🔒</span>
-            <div className="sp-home-text">
-              <span className="sp-home-title">My Study Plan</span>
-              <span className="sp-home-sub">Complete all topics in a level to unlock</span>
-            </div>
-          </>
-        )}
-      </button>
 
     </div>
   );
