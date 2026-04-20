@@ -11,6 +11,7 @@ const ACCENT_HEADER = {
 export default function LevelPage({ levelId, lessonsMap, profile, onStart, onFreePractice, onStudyPlan, onBack }) {
   const level              = LEVELS.find((l) => l.id === levelId);
   const completedTopics    = profile?.completedTopics ?? {};
+  const topicBestScores    = profile?.topicBestScores ?? {};
   const completedCount     = countCompletedTopics(level.topics, completedTopics);
   const allDone            = isLevelFullyComplete(levelId, completedTopics);
   const fpUnlocked         = allDone;
@@ -89,10 +90,25 @@ export default function LevelPage({ levelId, lessonsMap, profile, onStart, onFre
               {/* Right side */}
               <div className="lp-topic-right">
                 {done ? (
-                  <span className="lp-replay-badge" aria-label="Replay">
-                    <span className="lp-replay-icon">↺</span>
-                    <span className="lp-replay-text">Replay</span>
-                  </span>
+                  <div className="lp-done-right">
+                    {topic.lessonId in topicBestScores && (() => {
+                      const best = topicBestScores[topic.lessonId];
+                      const scoreClass = best === 9
+                        ? "lp-best-score lp-best-score-perfect"
+                        : best >= 6
+                        ? "lp-best-score"
+                        : "lp-best-score lp-best-score-low";
+                      return (
+                        <span className={scoreClass}>
+                          {best}/9{best === 9 ? " ★" : ""}
+                        </span>
+                      );
+                    })()}
+                    <span className="lp-replay-badge" aria-label="Replay">
+                      <span className="lp-replay-icon">↺</span>
+                      <span className="lp-replay-text">Replay</span>
+                    </span>
+                  </div>
                 ) : !unlocked ? (
                   <span className="lp-lock" aria-label="Locked">🔒</span>
                 ) : canStart ? (

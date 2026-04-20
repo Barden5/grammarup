@@ -301,24 +301,39 @@ export default function App() {
   }
 
   function handleFinish(newResults) {
-    const earned = getXpEarned(newResults);
-    const newXp  = xp + earned;
+    const earned    = getXpEarned(newResults);
+    const newXp     = xp + earned;
+    const newCorrect = newResults.filter(Boolean).length;
     setXp(newXp);
     setXpEarned(earned);
     setResults(newResults);
     if (profile) {
       const isFreePractice = activeLesson.lesson.isFreePractice;
+      const lessonId = activeLesson.lesson.id;
       const completedTopics = isFreePractice
         ? (profile.completedTopics ?? {})
-        : { ...(profile.completedTopics ?? {}), [activeLesson.lesson.id]: true };
+        : { ...(profile.completedTopics ?? {}), [lessonId]: true };
+      const oldBest = (profile.topicBestScores ?? {})[lessonId] ?? 0;
+      const topicBestScores = isFreePractice
+        ? (profile.topicBestScores ?? {})
+        : {
+            ...(profile.topicBestScores ?? {}),
+            [lessonId]: Math.max(oldBest, newCorrect),
+          };
       saveProfile({
         ...profile,
         xp:               newXp,
         lessonsCompleted: (profile.lessonsCompleted ?? 0) + 1,
         completedTopics,
+        topicBestScores,
       });
     }
     setScreen("score");
+  }
+
+  function handleTryAgain() {
+    setResults([]);
+    setScreen("lesson"); // activeLesson stays set — replays the same lesson
   }
 
   function handleRestart() {
@@ -461,6 +476,7 @@ export default function App() {
           xpEarned={xpEarned}
           onRestart={handleRestart}
           onNextLesson={handleNextLesson}
+          onTryAgain={handleTryAgain}
         />
       )}
 

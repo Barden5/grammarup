@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { playComplete, playXP } from "./soundEffects";
 
-export default function ScoreScreen({ results, lesson, allQuestions, xpEarned, onRestart, onNextLesson }) {
+export default function ScoreScreen({ results, lesson, allQuestions, xpEarned, onRestart, onNextLesson, onTryAgain }) {
   const total = results.length;
   const correct = results.filter(Boolean).length;
   const xp = xpEarned;
@@ -50,12 +50,31 @@ export default function ScoreScreen({ results, lesson, allQuestions, xpEarned, o
         ))}
       </div>
 
-      <button className="btn-primary" onClick={onNextLesson}>
-        Next Lesson →
-      </button>
-      <button className="btn-home" onClick={onRestart}>
-        Back to Home
-      </button>
+      {correct < 6 && (
+        <div className="score-nudge">
+          You got {correct}/9 — good effort! Want to try again to improve your score?
+        </div>
+      )}
+
+      {correct < 6 ? (
+        <>
+          <button className="btn-primary" onClick={onTryAgain}>
+            Try again
+          </button>
+          <button className="btn-home" onClick={onNextLesson}>
+            Continue anyway →
+          </button>
+        </>
+      ) : (
+        <>
+          <button className="btn-primary" onClick={onNextLesson}>
+            Next Lesson →
+          </button>
+          <button className="btn-home" onClick={onRestart}>
+            Back to Home
+          </button>
+        </>
+      )}
     </div>
   );
 }
