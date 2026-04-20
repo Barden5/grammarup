@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SplashScreen from "./SplashScreen";
 import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
@@ -11,6 +11,10 @@ import PlacementTest from "./PlacementTest";
 import ProfileSetup from "./ProfileSetup";
 import ProfileScreen from "./ProfileScreen";
 import FreePracticeLoader from "./FreePracticeLoader";
+import SignInScreen from "./SignInScreen";
+import { auth, db, googleProvider } from "./firebase";
+import { onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { lesson as a1Lesson, allQuestions as a1Questions } from "./lesson";
 import { lesson as a2Lesson, allQuestions as a2Questions } from "./lessonA2";
 import { lesson as b1Lesson, allQuestions as b1Questions } from "./lessonB1";
@@ -127,13 +131,14 @@ function loadProfile() {
 }
 
 export default function App() {
+  // ── Auth state ────────────────────────────────────────────────────────────
+  const [firebaseUser,  setFirebaseUser]  = useState(null);
+  const [authLoading,   setAuthLoading]   = useState(true);
+  const [signInLoading, setSignInLoading] = useState(false);
+
   const [profile, setProfile] = useState(loadProfile);
 
-  const [screen, setScreen] = useState(() => {
-    if (!localStorage.getItem(PLACEMENT_KEY)) return "splash";
-    if (!loadProfile())                        return "profile-setup";
-    return "home";
-  });
+  const [screen, setScreen] = useState("home");
 
   const [results,           setResults]         = useState([]);
   const [activeLesson,      setActiveLesson]    = useState(null);
@@ -146,10 +151,78 @@ export default function App() {
   const [spLevelId,        setSpLevelId]       = useState(null);
   const [spTopics,         setSpTopics]        = useState([]);
 
+  // ── Auth state listener ───────────────────────────────────────────────────
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setFirebaseUser(user);
+        setSignInLoading(false);
+        try {
+          const snap = await getDoc(doc(db, "users", user.uid));
+          if (snap.exists()) {
+            // Returning user — load data from Firestore
+            const p = snap.data().profile ?? null;
+            if (p) {
+              setProfile(p);
+              setXp(p.xp ?? 0);
+              setRecommendedLevel(p.level ?? null);
+              localStorage.setItem(PROFILE_KEY, JSON.stringify(p));
+              localStorage.setItem(PLACEMENT_KEY, "1");
+            }
+            setScreen("home");
+          } else {
+            // New user — run the normal onboarding flow
+            if (!localStorage.getItem(PLACEMENT_KEY)) {
+              setScreen("splash");
+            } else if (!loadProfile()) {
+              setScreen("profile-setup");
+            } else {
+              setScreen("home");
+            }
+          }
+        } catch (e) {
+          console.error("Firestore load error:", e);
+          setScreen("home");
+        }
+      } else {
+        // Signed out
+        setFirebaseUser(null);
+      }
+      setAuthLoading(false);
+    });
+    return unsubscribe;
+  }, []);
+
   // ── Persistence helper ────────────────────────────────────────────────────
   function saveProfile(data) {
     setProfile(data);
     localStorage.setItem(PROFILE_KEY, JSON.stringify(data));
+    if (firebaseUser) {
+      setDoc(doc(db, "users", firebaseUser.uid), { profile: data }, { merge: true })
+        .catch(console.error);
+    }
+  }
+
+  // ── Sign in / out ─────────────────────────────────────────────────────────
+  async function handleSignIn() {
+    setSignInLoading(true);
+    try {
+      await signInWithPopup(auth, googleProvider);
+      // onAuthStateChanged handles the rest
+    } catch (e) {
+      console.error("Sign-in error:", e);
+      setSignInLoading(false);
+    }
+  }
+
+  function handleSignOut() {
+    signOut(auth).catch(console.error);
+    // Reset local state — onAuthStateChanged will fire and clear firebaseUser
+    setProfile(null);
+    setXp(0);
+    setRecommendedLevel(null);
+    localStorage.removeItem(PROFILE_KEY);
+    localStorage.removeItem(PLACEMENT_KEY);
   }
 
   // ── Placement ─────────────────────────────────────────────────────────────
@@ -268,6 +341,22 @@ export default function App() {
   }
 
   // ── Render ────────────────────────────────────────────────────────────────
+  if (authLoading) {
+    return (
+      <div className="app">
+        <div className="auth-loading">Loading…</div>
+      </div>
+    );
+  }
+
+  if (!firebaseUser) {
+    return (
+      <div className="app">
+        <SignInScreen onSignIn={handleSignIn} loading={signInLoading} />
+      </div>
+    );
+  }
+
   return (
     <div className="app">
 
@@ -299,7 +388,7 @@ export default function App() {
       )}
 
       {screen === "settings" && (
-        <SettingsScreen onBack={() => setScreen("home")} />
+        <SettingsScreen onBack={() => setScreen("home")} onSignOut={handleSignOut} />
       )}
 
       {screen === "study-plan" && spLevelId && (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getSoundEnabled, setSoundEnabled } from "./soundEffects";
 
-export default function SettingsScreen({ onBack }) {
+export default function SettingsScreen({ onBack, onSignOut }) {
   const [soundOn, setSoundOn] = useState(getSoundEnabled);
 
   function toggleSound() {
@@ -42,6 +42,15 @@ export default function SettingsScreen({ onBack }) {
         </div>
 
       </div>
+
+      {/* Sign out */}
+      {onSignOut && (
+        <div className="settings-signout-area">
+          <button className="settings-signout-btn" onClick={onSignOut}>
+            Sign out
+          </button>
+        </div>
+      )}
 
       {/* Version */}
       <p className="settings-version">GrammarUp v1.0</p>

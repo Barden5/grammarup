@@ -1243,12 +1243,140 @@ body {
   transition: transform 0.2s;
 }
 
+.settings-signout-area {
+  padding: 8px 20px 4px;
+}
+
+.settings-signout-btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid #e53e3e;
+  background: transparent;
+  color: #e53e3e;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.settings-signout-btn:hover {
+  background: #e53e3e;
+  color: #fff;
+}
+
 .settings-version {
   font-size: 13px;
   color: var(--gray-400);
   text-align: center;
   margin-top: auto;
   padding-bottom: 8px;
+}
+
+/* ══════════════════════════════
+   SIGN IN SCREEN
+══════════════════════════════ */
+
+.signin-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 24px;
+  background: var(--bg);
+  min-height: 100%;
+}
+
+.signin-logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.signin-emoji {
+  font-size: 56px;
+  line-height: 1;
+}
+
+.signin-app-name {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--purple);
+  margin: 0;
+}
+
+.signin-tagline {
+  font-size: 16px;
+  color: var(--gray-500, #718096);
+  margin: 0;
+}
+
+.signin-card {
+  width: 100%;
+  max-width: 340px;
+  background: var(--card-bg, #fff);
+  border-radius: var(--radius-lg, 16px);
+  padding: 28px 24px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.signin-prompt {
+  font-size: 15px;
+  color: var(--text, #1a202c);
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.signin-google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px;
+  border-radius: var(--radius-md, 10px);
+  border: 1.5px solid #e2e8f0;
+  background: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text, #1a202c);
+  cursor: pointer;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.signin-google-btn:hover:not(:disabled) {
+  border-color: #a0aec0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.signin-google-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.signin-google-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* ══════════════════════════════
+   AUTH LOADING
+══════════════════════════════ */
+
+.auth-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  font-size: 16px;
+  color: var(--gray-400, #a0aec0);
 }
 
 /* ══════════════════════════════
